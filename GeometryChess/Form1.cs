@@ -30,11 +30,13 @@ namespace GeometryChess
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
+            GameField field = new GameField(pictureBox1.Width - 1, pictureBox1.Height - 1, Properties.Resources.Grid);
+            //Size size = new Size(pictureBox1.Width - 1, pictureBox1.Height - 1);
+            //Bitmap bt = new Bitmap(Properties.Resources.Grid, size);
+            pictureBox1.Image = field.GetBitmap();
+            Graphics graphics = Graphics.FromImage(field.GetBitmap());
             if (tr)
             {
-                Bitmap bt = new Bitmap("Grid.png");
-                pictureBox1.Image = bt;
-                Graphics graphics = Graphics.FromImage(bt);
 
                 Figures tr = new Triangle(40, 85, 30, 30, Color.Blue);
                 tr.Draw(graphics);
