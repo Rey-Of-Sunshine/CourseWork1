@@ -9,29 +9,52 @@ namespace GeometryChess
 {
     internal class GameField
     {
-        int width, height, i, j;
+        int width, height; // i, j;
+        float sizeCellX, sizeCellY;
 
-        Bitmap bitmap;
-        Size size;
+        //Bitmap bitmap;
+        //Size size;
+        
 
-        public GameField(int width, int height, Image image)
+        public GameField(int width, int height) //Image image
         {
-            this.width = width;
-            this.height = height;
+            this.width = width-8;
+            this.height = height-8;
+            sizeCellX = (this.width) / 12;
+            sizeCellY = (this.height) / 12;
             
-            size = new Size(width, height);
-            bitmap = new Bitmap(image, size);
+            //size = new Size(width, height);
+            //bitmap = new Bitmap(image, size);
         }
 
-        public Bitmap GetBitmap()
+        //public Bitmap GetBitmap()
+        //{
+        //    return bitmap;
+        //}
+
+        public void Draw(Graphics g, int x1, int y1, int x2, int y2)
         {
-            return bitmap;
+
+            g.DrawLine(new Pen(Color.Black), x1, y1, x2, y2);
         }
 
-        public void TouchCell(int X, int Y) // 30*30  
+        public int TouchCellX(int X) 
         {
-            i = X / (width / 12);
-            j = Y / (height / 12);
+            return (int)((X-2) / sizeCellX);
+        }
+        public int TouchCellY(int Y)
+        {
+            return (int)((Y-2) / sizeCellY);
+        }
+
+        public float GetSizeCellW()
+        {
+            return sizeCellX;
+        }
+
+        public float GetSizeCellH()
+        {
+            return sizeCellY;
         }
     }
 }
