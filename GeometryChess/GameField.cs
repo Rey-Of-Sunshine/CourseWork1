@@ -47,6 +47,11 @@ namespace GeometryChess
             return (int)((Y-2) / sizeCellY);
         }
 
+        public bool TouchCell(int X, int Y, int i, int j)
+        {
+            return X > i * sizeCellX && Y > j * sizeCellY && X< (i+1) * sizeCellX && Y < (j+1) * sizeCellY;
+        }
+
         public float GetSizeCellW()
         {
             return sizeCellX;

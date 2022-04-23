@@ -19,10 +19,32 @@ namespace GeometryChess
 
         }
 
-        bool tr = false;
+        bool tr = false, clicTr = false, clicRect = false, clicCicle = false;
         int touchX, touchY;
         Figures[,] figures = new Figures[12, 12];
         GameField field;
+
+
+        private void buttonTriangle_Click(object sender, EventArgs e)
+        {
+            clicTr = true;
+            clicRect = false;
+            clicCicle = false;
+        }
+
+        private void buttonRectangle_Click(object sender, EventArgs e)
+        {
+            clicTr = false;
+            clicRect = true;
+            clicCicle = false;
+        }
+
+        private void buttonCircle_Click(object sender, EventArgs e)
+        {
+            clicTr = false;
+            clicRect = false;
+            clicCicle = true;
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -30,12 +52,15 @@ namespace GeometryChess
             Refresh();
         }
 
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            touchX = field.TouchCellX(e.X);
+            touchY = field.TouchCellY(e.Y);
+        }
 
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            int h = 32;
-            int w = 32;
             gameField.Width = 440;
             gameField.Height = 440;
 
@@ -43,24 +68,36 @@ namespace GeometryChess
             gameField.Image = new Bitmap(gameField.Width, gameField.Height);
             Graphics graphics = Graphics.FromImage(gameField.Image);
 
+            int delta = 6;
+            int h = (int)field.GetSizeCellW() - delta;
+            int w = (int)field.GetSizeCellW() - delta;
+
             for (int i=0; i<15;i++)
             {
                 field.Draw(graphics, 4+i* (int)field.GetSizeCellW(), 4, 4+i * (int)field.GetSizeCellW(), gameField.Height-4);
                 field.Draw(graphics, 4, 4+i * (int)field.GetSizeCellH(), gameField.Width-4, 4+i * (int)field.GetSizeCellH());
             }
            
+            if (clicTr)
+            {
+                Figures tr = new Triangle(4 + delta/2 + touchX * field.GetSizeCellW(), 4 + delta / 2 + touchY * field.GetSizeCellH(), w, h, 3, Color.Blue, Color.Black);
+                tr.Draw(graphics);
+            }
+
+            if (clicRect)
+            {
+                Figures tr1 = new Rect(4 + delta / 2 + touchX * field.GetSizeCellW(), 4 + delta / 2 + touchY * field.GetSizeCellH(), w, h, 3, Color.Blue, Color.Black);
+                tr1.Draw(graphics);
+            }
+
+            if (clicCicle)
+            {
+                Figures tr2 = new Circle(4 + delta / 2 + touchX * field.GetSizeCellW(), 4 + delta / 2 + touchY * field.GetSizeCellH(), w, h, 2, Color.Blue, Color.Black);
+                tr2.Draw(graphics);
+            }
 
             if (tr)
             {
-
-                //Figures tr = new Triangle(6 + touchX * field.GetSizeCellW(), 6 + touchY * field.GetSizeCellH(), w, h, 3 Color.Blue, Color.Black);
-                //tr.Draw(graphics);
-
-                //Figures tr1 = new Rect(6 + touchX*field.GetSizeCellW(), 6 + touchY* field.GetSizeCellH(), w, h, 3, Color.Blue, Color.Black);
-                //tr1.Draw(graphics);
-
-                Figures tr2 = new Circle(6 + touchX * field.GetSizeCellW(), 6 + touchY * field.GetSizeCellH(), w, h, 2, Color.Blue, Color.Black);
-                tr2.Draw(graphics);
 
                 //textBox1.Text = Convert.ToString(touchX * field.GetSizeCellW());
                 //textBox2.Text = Convert.ToString(touchY * field.GetSizeCellH());
@@ -102,10 +139,6 @@ namespace GeometryChess
             quantitiCircle.Text = Convert.ToString(100 / 12);
         }
 
-        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
-        {
-            touchX = field.TouchCellX(e.X);
-            touchY = field.TouchCellY(e.Y);
-        }
+
     }
 }

@@ -56,24 +56,33 @@
             this.quantitiTtiangle.Location = new System.Drawing.Point(775, 72);
             this.quantitiTtiangle.Name = "quantitiTtiangle";
             this.quantitiTtiangle.ReadOnly = true;
+            this.quantitiTtiangle.ShortcutsEnabled = false;
             this.quantitiTtiangle.Size = new System.Drawing.Size(40, 22);
             this.quantitiTtiangle.TabIndex = 1;
+            this.quantitiTtiangle.TabStop = false;
+            this.quantitiTtiangle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // quantitiRectangle
             // 
             this.quantitiRectangle.Location = new System.Drawing.Point(775, 159);
             this.quantitiRectangle.Name = "quantitiRectangle";
             this.quantitiRectangle.ReadOnly = true;
+            this.quantitiRectangle.ShortcutsEnabled = false;
             this.quantitiRectangle.Size = new System.Drawing.Size(40, 22);
             this.quantitiRectangle.TabIndex = 2;
+            this.quantitiRectangle.TabStop = false;
+            this.quantitiRectangle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // quantitiCircle
             // 
             this.quantitiCircle.Location = new System.Drawing.Point(775, 249);
             this.quantitiCircle.Name = "quantitiCircle";
             this.quantitiCircle.ReadOnly = true;
+            this.quantitiCircle.ShortcutsEnabled = false;
             this.quantitiCircle.Size = new System.Drawing.Size(40, 22);
             this.quantitiCircle.TabIndex = 3;
+            this.quantitiCircle.TabStop = false;
+            this.quantitiCircle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // button1
             // 
@@ -98,6 +107,7 @@
             this.buttonTriangle.Size = new System.Drawing.Size(50, 50);
             this.buttonTriangle.TabIndex = 5;
             this.buttonTriangle.UseVisualStyleBackColor = true;
+            this.buttonTriangle.Click += new System.EventHandler(this.buttonTriangle_Click);
             this.buttonTriangle.Paint += new System.Windows.Forms.PaintEventHandler(this.buttonTriangle_Paint);
             // 
             // buttonRectangle
@@ -108,6 +118,7 @@
             this.buttonRectangle.Size = new System.Drawing.Size(50, 50);
             this.buttonRectangle.TabIndex = 6;
             this.buttonRectangle.UseVisualStyleBackColor = true;
+            this.buttonRectangle.Click += new System.EventHandler(this.buttonRectangle_Click);
             this.buttonRectangle.Paint += new System.Windows.Forms.PaintEventHandler(this.buttonRectangle_Paint);
             // 
             // buttonCircle
@@ -118,6 +129,7 @@
             this.buttonCircle.Size = new System.Drawing.Size(50, 50);
             this.buttonCircle.TabIndex = 7;
             this.buttonCircle.UseVisualStyleBackColor = true;
+            this.buttonCircle.Click += new System.EventHandler(this.buttonCircle_Click);
             this.buttonCircle.Paint += new System.Windows.Forms.PaintEventHandler(this.buttonCircle_Paint);
             // 
             // label1
