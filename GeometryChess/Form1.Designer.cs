@@ -33,12 +33,12 @@
             this.quantitiTtiangle = new System.Windows.Forms.TextBox();
             this.quantitiRectangle = new System.Windows.Forms.TextBox();
             this.quantitiCircle = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.buttonTriangle = new System.Windows.Forms.Button();
             this.buttonRectangle = new System.Windows.Forms.Button();
             this.buttonCircle = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.dealet = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gameField)).BeginInit();
             this.SuspendLayout();
             // 
@@ -83,16 +83,6 @@
             this.quantitiCircle.TabIndex = 3;
             this.quantitiCircle.TabStop = false;
             this.quantitiCircle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(711, 362);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(94, 68);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // timer1
             // 
@@ -141,16 +131,27 @@
             this.label1.TabIndex = 8;
             this.label1.Text = "Осталось фигур";
             // 
+            // dealet
+            // 
+            this.dealet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.dealet.Location = new System.Drawing.Point(678, 320);
+            this.dealet.Name = "dealet";
+            this.dealet.Size = new System.Drawing.Size(125, 47);
+            this.dealet.TabIndex = 9;
+            this.dealet.Text = "убрать";
+            this.dealet.UseVisualStyleBackColor = true;
+            this.dealet.Click += new System.EventHandler(this.dealet_Click);
+            // 
             // GameProcess
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(902, 653);
+            this.Controls.Add(this.dealet);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonCircle);
             this.Controls.Add(this.buttonRectangle);
             this.Controls.Add(this.buttonTriangle);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.quantitiCircle);
             this.Controls.Add(this.quantitiRectangle);
             this.Controls.Add(this.quantitiTtiangle);
@@ -174,12 +175,12 @@
         private System.Windows.Forms.TextBox quantitiTtiangle;
         private System.Windows.Forms.TextBox quantitiRectangle;
         private System.Windows.Forms.TextBox quantitiCircle;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button buttonTriangle;
         private System.Windows.Forms.Button buttonRectangle;
         private System.Windows.Forms.Button buttonCircle;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button dealet;
     }
 }
 
