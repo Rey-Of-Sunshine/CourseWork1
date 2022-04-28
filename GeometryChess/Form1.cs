@@ -17,7 +17,7 @@ namespace GeometryChess
             InitializeComponent();
         }
 
-        bool clicTr = false, clicRect = false, clicCicle = false, dlt = true;
+        bool clicTr = false, clicRect = false, clicCicle = false, dlt = true, plaer = true;
         int touchX, touchY;
         int coins = 100;
         int costT = 13, costR = 13, costC = 12;
@@ -77,7 +77,7 @@ namespace GeometryChess
             {
                 if (clicTr && coins >= 12 && figures[touchX, touchY] == null)
                 {
-                    figures[touchX, touchY] = new Triangle(x, y, w, h, Color.Blue, Color.Black);
+                    figures[touchX, touchY] = new Triangle(x, y, w, h, Color.Blue, Color.Black, plaer);
                     coins -= costT;
                     //clicTr = false;
                     remember = figures[touchX, touchY];
@@ -151,7 +151,7 @@ namespace GeometryChess
 
         private void buttonTriangle_Paint(object sender, PaintEventArgs e)
         {
-            Figures trf = new Triangle(5, 5, buttonTriangle.Width - 10, buttonTriangle.Height - 10, Color.Black, Color.Black);
+            Figures trf = new Triangle(5, 5, buttonTriangle.Width - 10, buttonTriangle.Height - 10, Color.Black, Color.Black, plaer);
             trf.Draw(e.Graphics);
         }
 
