@@ -5,22 +5,10 @@ namespace GeometryChess
     internal abstract class Figures
     {
         protected float x, y;
-        protected int w, h, cost, coins;
+        protected int w, h;
         protected SolidBrush brush;
         protected Pen pen;
 
-        protected Figures(float x, float y, int w, int h, int cost, int coins, Color color, Color colorP)
-        {
-            this.x = x;
-            this.y = y;
-            this.w = w;
-            this.h = h;
-            this.cost = cost;
-            this.coins = coins;
-
-            brush = new SolidBrush(color);
-            pen = new Pen(colorP);
-        }
 
         protected Figures(float x, float y, int w, int h, Color color, Color colorP)
         {
@@ -33,10 +21,10 @@ namespace GeometryChess
             pen = new Pen(colorP);
         }
 
-        internal int Quatiti()
-        {
-            return coins / cost;
-        }
+        //internal int Quatiti()
+        //{
+        //    return coins / cost;
+        //}
 
         internal abstract void Draw(Graphics g);
 
@@ -54,22 +42,20 @@ namespace GeometryChess
     }
 
 
-    class Triangle : Figures
+    class Triangle : Figures //фигура противника перевёрнутая
     {
-        public Triangle(float x, float y, int w, int h, int cost, int coins, Color color, Color colorP) : base (x, y, w, h, cost, coins, color, colorP)
-        { }
-        public Triangle(float x, float y, int w, int h, Color color, Color colorP) : base(x, y, w, h, color, colorP)
+        public Triangle(float x, float y, int w, int h, Color color, Color colorP, bool plaer) : base(x, y, w, h, color, colorP)
         { }
 
         internal override void Draw(Graphics g)
         {
-            PointF point1 = new PointF(x + w / 2, y ); 
-            PointF point2 = new PointF(x, y+h);
-            PointF point3 = new PointF(x + w, y+h);
+            PointF point1 = new PointF(x + w / 2, y);
+            PointF point2 = new PointF(x, y + h);
+            PointF point3 = new PointF(x + w, y + h);
             PointF[] point = new PointF[] { point1, point2, point3 };
             g.FillPolygon(brush, point);
             g.DrawPolygon(pen, point);
-        } 
+        }
 
         internal override bool Touch(int X, int Y)
         {
@@ -79,8 +65,6 @@ namespace GeometryChess
 
     class Rect : Figures
     {
-        public Rect(float x, float y, int w, int h, int cost, int coins, Color color, Color colorP) : base(x, y, w, h, cost, coins, color, colorP)
-        { }
         public Rect(float x, float y, int w, int h, Color color, Color colorP) : base(x, y, w, h, color, colorP)
         { }
 
@@ -98,8 +82,6 @@ namespace GeometryChess
 
     class Circle : Figures
     {
-        public Circle(float x, float y, int w, int h, int cost, int coins, Color color, Color colorP) : base(x, y, w, h, cost, coins, color, colorP)
-        { }
         public Circle(float x, float y, int w, int h, Color color, Color colorP) : base(x, y, w, h, color, colorP)
         { }
 

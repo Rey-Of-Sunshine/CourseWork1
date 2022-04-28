@@ -10,19 +10,20 @@ using System.Windows.Forms;
 
 namespace GeometryChess
 {
-    public partial class Start : Form
+    public partial class StartWindow : Form
     {
-        public Start()
+        public StartWindow()
         {
             InitializeComponent();
         }
 
-        Form f = new GameProcess();
+        //Form f = new GameProcess();
 
         private void buttonStart_Click(object sender, EventArgs e)
         {
-            f.Show();
-            Hide();
+            //f.Show();
+
+            Close();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace GeometryChess
 {
-    partial class Start
+    partial class StartWindow
     {
         /// <summary>
         /// Required designer variable.
