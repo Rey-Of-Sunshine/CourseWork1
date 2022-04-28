@@ -104,7 +104,6 @@ namespace GeometryChess
                     figures[touchX, touchY] = null;
                 }
             }
-            label1.Text = Convert.ToString(coins);
             quantitiTtiangle.Text = Convert.ToString(coins / costT);
             quantitiRectangle.Text = Convert.ToString(coins / costR);
             quantitiCircle.Text = Convert.ToString(coins / costC);
@@ -116,7 +115,7 @@ namespace GeometryChess
             gameField.Width = 440;
             gameField.Height = 440;
 
-            field = new GameField(gameField.Width, gameField.Height); //Properties.Resources.Grid
+            field = new GameField(gameField.Width, gameField.Height);
             gameField.Image = new Bitmap(gameField.Width, gameField.Height);
             Graphics graphics = Graphics.FromImage(gameField.Image);
 

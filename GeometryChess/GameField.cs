@@ -9,11 +9,10 @@ namespace GeometryChess
 {
     internal class GameField
     {
-        int width, height; // i, j;
+        int width, height; 
         float sizeCellX, sizeCellY;
 
-        Random comPlan;
-        Figures[,] figures = new Figures[12, 5];
+        Figures[,] figures = new Figures[12,5];
 
         //Bitmap bitmap;
         //Size size;
@@ -21,11 +20,11 @@ namespace GeometryChess
 
         public GameField(int width, int height) //Image image
         {
-            this.width = width - 8;
-            this.height = height - 8;
+            this.width = width-8;
+            this.height = height-8;
             sizeCellX = (this.width) / 12;
             sizeCellY = (this.height) / 12;
-
+            
             //size = new Size(width, height);
             //bitmap = new Bitmap(image, size);
         }
@@ -37,12 +36,12 @@ namespace GeometryChess
 
         internal void Placement()
         {
+            Random comPlan = new Random();
             int coins = 100;
-
-            Random rnd = new Random();
+            
             Figures f;
 
-            while (coins >= 12)
+            while (coins>=12)
             {
 
             }
@@ -50,7 +49,7 @@ namespace GeometryChess
             switch (comPlan.Next(3))
             {
                 case 0:
-                    //f = new Triangle(x, y, w, h, Color.Blue, Color.Black);
+                    //f = new Triangle(x, y, w, h, Color.Blue, Color.Black, plaer);
                     break;
                 case 1:
                     //f = new Rect(x, y, w, h, Color.Blue, Color.Black);
@@ -66,18 +65,18 @@ namespace GeometryChess
             g.DrawLine(new Pen(Color.Black), x1, y1, x2, y2);
         }
 
-        public int TouchCellX(int X)
+        public int TouchCellX(int X) 
         {
-            return (int)((X - 2) / sizeCellX);
+            return (int)((X-2) / sizeCellX);
         }
         public int TouchCellY(int Y)
         {
-            return (int)((Y - 2) / sizeCellY);
+            return (int)((Y-2) / sizeCellY);
         }
 
         public bool TouchCell(int X, int Y, int i, int j)
         {
-            return X > i * sizeCellX && Y > j * sizeCellY && X < (i + 1) * sizeCellX && Y < (j + 1) * sizeCellY;
+            return X > i * sizeCellX && Y > j * sizeCellY && X< (i+1) * sizeCellX && Y < (j+1) * sizeCellY;
         }
 
         public float GetSizeCellW()
