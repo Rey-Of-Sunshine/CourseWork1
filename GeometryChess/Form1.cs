@@ -15,6 +15,12 @@ namespace GeometryChess
         public GameProcess()
         {
             InitializeComponent();
+
+            gameField.Width = 440;
+            gameField.Height = 440;
+
+            field = new GameField(gameField.Width, gameField.Height);
+            field.Placement(figures);
         }
 
         bool clicTr = false, clicRect = false, clicCicle = false, dlt = true, plaer = true;
@@ -27,6 +33,7 @@ namespace GeometryChess
         Figures[,] figures = new Figures[12, 12];
         Figures remember;
         GameField field;
+        Graphics graphics;
         //Form f = new Start();
 
 
@@ -112,15 +119,12 @@ namespace GeometryChess
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            gameField.Width = 440;
-            gameField.Height = 440;
-
-            field = new GameField(gameField.Width, gameField.Height);
-            gameField.Image = new Bitmap(gameField.Width, gameField.Height);
-            Graphics graphics = Graphics.FromImage(gameField.Image);
-
+            
             int h = (int)field.GetSizeCellH();
             int w = (int)field.GetSizeCellW();
+
+            gameField.Image = new Bitmap(gameField.Width, gameField.Height);
+            graphics = Graphics.FromImage(gameField.Image);
 
             //draw grid
             for (int i = 0; i < 15; i++)

@@ -34,6 +34,7 @@
             // buttonStart
             // 
             this.buttonStart.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonStart.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonStart.Font = new System.Drawing.Font("Microsoft YaHei", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonStart.Location = new System.Drawing.Point(316, 283);
             this.buttonStart.Name = "buttonStart";
@@ -43,7 +44,7 @@
             this.buttonStart.UseVisualStyleBackColor = false;
             this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
             // 
-            // Start
+            // StartWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -51,7 +52,7 @@
             this.Controls.Add(this.buttonStart);
             this.MaximumSize = new System.Drawing.Size(920, 700);
             this.MinimumSize = new System.Drawing.Size(920, 700);
-            this.Name = "Start";
+            this.Name = "StartWindow";
             this.Text = "Start";
             this.ResumeLayout(false);
 

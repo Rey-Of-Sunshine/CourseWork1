@@ -23,6 +23,7 @@ namespace GeometryChess
         {
             //f.Show();
 
+
             Close();
         }
     }

@@ -12,8 +12,7 @@ namespace GeometryChess
         int width, height; 
         float sizeCellX, sizeCellY;
 
-        Figures[,] figures = new Figures[12,5];
-
+        
         //Bitmap bitmap;
         //Size size;
 
@@ -34,30 +33,44 @@ namespace GeometryChess
         //    return bitmap;
         //}
 
-        internal void Placement()
+        internal void Placement(Figures[,] figures)
         {
-            Random comPlan = new Random();
             int coins = 100;
-            
-            Figures f;
+            bool plaer = false;
+            int delta = 6;
+            int h = (int)GetSizeCellH() - delta;
+            int w = (int)GetSizeCellW() - delta;
+            int costT = 13, costR = 13, costC = 12;
+
+            Random comPlan = new Random();
 
             while (coins>=12)
             {
+                int touchX = comPlan.Next(12);
+                int touchY = comPlan.Next(5);
+                float x = 4 + delta / 2 + touchX * GetSizeCellW();
+                float y = 4 + delta / 2 + touchY * GetSizeCellH();
 
+                if (figures[touchX, touchY] == null)
+                {
+                    switch (comPlan.Next(3))
+                    {
+                        case 0:
+                            figures[touchX, touchY] = new Triangle(x, y, w, h, Color.Green, Color.Black, plaer);
+                            coins -= costT;
+                            break;
+                        case 1:
+                            figures[touchX, touchY] = new Rect(x, y, w, h, Color.Green, Color.Black);
+                            coins -= costR;
+                            break;
+                        case 2:
+                            figures[touchX, touchY] = new Circle(x, y, w, h, Color.Green, Color.Black);
+                            coins -= costC;
+                            break;
+                    }
+                }
             }
 
-            switch (comPlan.Next(3))
-            {
-                case 0:
-                    //f = new Triangle(x, y, w, h, Color.Blue, Color.Black, plaer);
-                    break;
-                case 1:
-                    //f = new Rect(x, y, w, h, Color.Blue, Color.Black);
-                    break;
-                case 2:
-                    //f = new Circle(x, y, w, h, Color.Blue, Color.Black);
-                    break;
-            }
         }
 
         public void Draw(Graphics g, int x1, int y1, int x2, int y2)
