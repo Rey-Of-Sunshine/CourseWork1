@@ -25,9 +25,8 @@ namespace GeometryChess
 
         bool clicTr = false, clicRect = false, clicCicle = false, dlt = true, plaer = true;
         int touchX, touchY;
-        int coins = 100;
+        int coins = 150;
         int costT = 13, costR = 13, costC = 12;
-        object obj;
 
 
         Figures[,] figures = new Figures[12, 12];
@@ -91,14 +90,14 @@ namespace GeometryChess
                 }
                 if (clicRect && coins >= 12 && figures[touchX, touchY] == null)
                 {
-                    figures[touchX, touchY] = new Rect(x, y, w, h, Color.Blue, Color.Black);
+                    figures[touchX, touchY] = new Rect(x, y, w, h, Color.Blue, Color.Black, plaer);
                     coins -= costR;
                     //clicRect = false;
                     remember = figures[touchX, touchY];
                 }
                 if (clicCicle && coins >= 12 && figures[touchX, touchY] == null)
                 {
-                    figures[touchX, touchY] = new Circle(x, y, w, h, Color.Blue, Color.Black);
+                    figures[touchX, touchY] = new Circle(x, y, w, h, Color.Blue, Color.Black, plaer);
                     coins -= costC;
                     //clicCicle = false;
                     remember = figures[touchX, touchY];
@@ -129,7 +128,7 @@ namespace GeometryChess
             //draw grid
             for (int i = 0; i < 15; i++)
             {
-                if (i == 7) field.Draw(graphics, 4, 3 + i * h, gameField.Width - 4, 3 + i * h);
+                if (i == 7 || i==5) field.Draw(graphics, 4, 3 + i * h, gameField.Width - 4, 3 + i * h);
                 field.Draw(graphics, 4 + i * w, 4, 4 + i * w, gameField.Height - 4);
                 field.Draw(graphics, 4, 4 + i * h, gameField.Width - 4, 4 + i * h);
             }
@@ -149,6 +148,14 @@ namespace GeometryChess
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            //for (int i = 0; i < 12; i++)
+            //{
+            //    for (int j = 0; j < 12; j++)
+            //    {
+            //        if (figures[i, j] != null) figures[i, j].Move();
+            //    }
+            //}
+
             Refresh();
         }
 
@@ -161,13 +168,13 @@ namespace GeometryChess
 
         private void buttonRectangle_Paint(object sender, PaintEventArgs e)
         {
-            Figures trf1 = new Rect(5, 5, buttonRectangle.Width - 10, buttonRectangle.Height - 10, Color.Black, Color.Black);
+            Figures trf1 = new Rect(5, 5, buttonRectangle.Width - 10, buttonRectangle.Height - 10, Color.Black, Color.Black, plaer);
             trf1.Draw(e.Graphics);
         }
 
         private void buttonCircle_Paint(object sender, PaintEventArgs e)
         {
-            Figures trf2 = new Circle(5, 5, buttonCircle.Width - 10, buttonCircle.Height - 10, Color.Black, Color.Black);
+            Figures trf2 = new Circle(5, 5, buttonCircle.Width - 10, buttonCircle.Height - 10, Color.Black, Color.Black, plaer);
             trf2.Draw(e.Graphics);
 
         }
@@ -175,6 +182,9 @@ namespace GeometryChess
         private void Form1_Load(object sender, EventArgs e)
         {
             (new StartWindow()).ShowDialog();
+            quantitiTtiangle.Text = Convert.ToString(coins / costT);
+            quantitiRectangle.Text = Convert.ToString(coins / costR);
+            quantitiCircle.Text = Convert.ToString(coins / costC);
         }
 
 

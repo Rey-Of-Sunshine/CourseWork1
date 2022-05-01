@@ -55,6 +55,7 @@
             // 
             // quantitiTtiangle
             // 
+            this.quantitiTtiangle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.quantitiTtiangle.Location = new System.Drawing.Point(787, 72);
             this.quantitiTtiangle.Name = "quantitiTtiangle";
             this.quantitiTtiangle.ReadOnly = true;
@@ -66,6 +67,7 @@
             // 
             // quantitiRectangle
             // 
+            this.quantitiRectangle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.quantitiRectangle.Location = new System.Drawing.Point(787, 159);
             this.quantitiRectangle.Name = "quantitiRectangle";
             this.quantitiRectangle.ReadOnly = true;
@@ -77,6 +79,7 @@
             // 
             // quantitiCircle
             // 
+            this.quantitiCircle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.quantitiCircle.Location = new System.Drawing.Point(787, 249);
             this.quantitiCircle.Name = "quantitiCircle";
             this.quantitiCircle.ReadOnly = true;

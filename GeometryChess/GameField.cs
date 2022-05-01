@@ -35,7 +35,7 @@ namespace GeometryChess
 
         internal void Placement(Figures[,] figures)
         {
-            int coins = 100;
+            int coins = 150;
             bool plaer = false;
             int delta = 6;
             int h = (int)GetSizeCellH() - delta;
@@ -60,11 +60,11 @@ namespace GeometryChess
                             coins -= costT;
                             break;
                         case 1:
-                            figures[touchX, touchY] = new Rect(x, y, w, h, Color.Green, Color.Black);
+                            figures[touchX, touchY] = new Rect(x, y, w, h, Color.Green, Color.Black, plaer);
                             coins -= costR;
                             break;
                         case 2:
-                            figures[touchX, touchY] = new Circle(x, y, w, h, Color.Green, Color.Black);
+                            figures[touchX, touchY] = new Circle(x, y, w, h, Color.Green, Color.Black, plaer);
                             coins -= costC;
                             break;
                     }
