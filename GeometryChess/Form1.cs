@@ -43,7 +43,6 @@ namespace GeometryChess
 
 
         Figure[,] figures = new Figure[12, 12];
-        Figure remember;
         GameField field;
         Graphics graphics;
         //Form f = new Start();
@@ -102,10 +101,9 @@ namespace GeometryChess
                 else if (CheckPlacement(touchX, touchY))
                 {
                     figures[touchX, touchY] = figs[selectedFigure].Clone(x, y, w, h, Color.Blue, Color.Black, true);
+                    figures[touchX, touchY].indexX = touchX;
+                    figures[touchX, touchY].indexY = touchY;
                     coins -= costT;
-                    //clicTr = false;
-                    remember = figures[touchX, touchY];
-
                 }
 
             }
@@ -167,8 +165,8 @@ namespace GeometryChess
                         {
                             side = 8;
                         }
-                        figures[i, j].ChangeDirection(side, distance, dx, dy);
-                        figures[i, j]?.Move(dx, dy, isObj);
+                        //figures[i, j].ChangeDirection(side, distance, dx, dy);
+                        //figures[i, j]?.Move(dx, dy, isObj);
                     }
                 }
 

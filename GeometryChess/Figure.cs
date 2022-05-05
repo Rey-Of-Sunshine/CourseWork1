@@ -1,8 +1,11 @@
 ﻿using System.Drawing;
 using System;
+using System.Collections.Generic;
 
 namespace GeometryChess
 {
+    enum WayFigure { NW, N, NE, E, SE, S, SW, W}
+    
     internal abstract class Figure
     {
         protected float x, y;
@@ -11,7 +14,17 @@ namespace GeometryChess
         protected Pen pen;
         protected bool isPlayer;
         protected int distance = 0;
+        public int indexX
+        {
+            set { if (value>=0 && value<13) indexX = value; }
+            get { return indexX; }
+        }
 
+        public int indexY
+        {
+            set { if (value >= 0 && value < 13) indexY = value; }
+            get { return indexY; }
+        }
 
         public Figure() { }
         protected Figure(float x, float y, int w, int h, Color color, Color colorP, bool player)
@@ -31,18 +44,31 @@ namespace GeometryChess
         //    return coins / cost;
         //}
 
+        WayFigure wayFigure =WayFigure.N;
+        protected Dictionary<WayFigure, int[]> figWay = new Dictionary<WayFigure, int[]>()
+        {
+            { WayFigure.NW , new int[]{ -1, -1 } },
+             { WayFigure.N , new int[]{ 0, -1 } },
+              { WayFigure.NE , new int[]{ 1, -1 } },
+              { WayFigure.E , new int[]{ 1, 0 } },
+              { WayFigure.SE , new int[]{ 1, 1 } },
+              { WayFigure.S , new int[]{ 0, 1 } },
+              { WayFigure.SW , new int[]{ -1, 1 } },
+              { WayFigure.W , new int[]{ -1, 0 } },
+        };
+        //protected bool CheckWay(Figure[,] map) => map[indexX + distance * figWay[WayFigure.N][0], indexY + distance * figWay[WayFigure.N][1]] == null;
+
         internal abstract void Draw(Graphics g);
 
-        protected abstract bool MoveDirection(Figure[,] map, Random rnd);
-        protected abstract bool EatDirection(Figure[,] map, Random rnd);
+        protected abstract bool MoveDirection(Figure[,] map, Random rnd, GameField field);
+        protected abstract bool EatDirection(Figure[,] map, Random rnd, GameField field);
 
         public abstract Figure Clone(float x, float y, int w, int h, Color color, Color colorP, bool player);
 
-        internal void Move(Figure[,] map, Random rnd)
+        internal void Move(Figure[,] map, Random rnd, GameField field)
         {
-            if (!EatDirection(map, rnd))
-                MoveDirection(map, rnd);
-
+            if (!EatDirection(map, rnd, field))
+                MoveDirection(map, rnd, field);
         }
 
     }
@@ -79,33 +105,45 @@ namespace GeometryChess
             g.DrawPolygon(pen, point);
         }
 
-        // траектория шага: x=x, y-=2(3, 4); x=-y (x<x, y>y); x=y (x>x, y>y) 2-4 клетки
-        internal override void MoveDirection(Figure[,] map, Random rnd)
-        {
-            int side = rnd.Next(3);
-
-            switch (side)
-            {
-                case 0: //вперёд
-                    dy = -distance;
-                    break;
-                case 1: //назад влево
-                    dx = -distance;
-                    dy = distance;
-                    break;
-                case 2: // назад вправо
-                    dx = distance;
-                    dy = distance;
-                    break;
-            }
-        }
-
         public override Figure Clone(float x, float y, int w, int h, Color color, Color colorP, bool player)
         {
             return new Triangle(x, y, w, h, color, colorP, player);
         }
 
-        protected override bool EatDirection(Figure[,] map, Random rnd)
+        // траектория шага: x=x, y-=2(3, 4); x=-y (x<x, y>y); x=y (x>x, y>y) 2-4 клетки
+        protected override bool MoveDirection(Figure[,] map, Random rnd, GameField field)
+        {
+            int side = rnd.Next(3);
+            int wayX = 0, wayY = 0;
+
+            switch (side)
+            {
+                case 0: //вперёд
+                    wayX = figWay[WayFigure.N][0];
+                    wayY = figWay[WayFigure.N][1];
+                    //y = (map[indexX, indexY - distance] == null) ? -distance * field.GetSizeCellH() : +0;
+                    //dy = -distance;
+                    break;
+                case 1: //назад влево
+                    wayX = figWay[WayFigure.SW][0];
+                    wayY = figWay[WayFigure.SW][1];
+                    break;
+                case 2: // назад вправо
+                    wayX = figWay[WayFigure.SE][0];
+                    wayY = figWay[WayFigure.SE][1];
+                    break;
+
+            }
+            if (map[indexX + distance * wayX, indexY + distance * wayY] == null)
+            {
+                x += distance * field.GetSizeCellH() * figWay[WayFigure.N][0];
+                y += distance * field.GetSizeCellH() * figWay[WayFigure.N][1];
+            }
+            return true;
+        }
+
+
+        protected override bool EatDirection(Figure[,] map, Random rnd, GameField field)
         {
             throw new NotImplementedException();
         }
@@ -156,12 +194,12 @@ namespace GeometryChess
             return new Rect(x, y, w, h, color, colorP, player);
         }
 
-        protected override bool MoveDirection(Figure[,] map, Random rnd)
+        protected override bool MoveDirection(Figure[,] map, Random rnd, GameField field)
         {
             throw new NotImplementedException();
         }
 
-        protected override bool EatDirection(Figure[,] map, Random rnd)
+        protected override bool EatDirection(Figure[,] map, Random rnd, GameField field)
         {
             throw new NotImplementedException();
         }
@@ -222,12 +260,12 @@ namespace GeometryChess
             return new Circle(x, y, w, h, color, colorP, player);
         }
 
-        protected override bool MoveDirection(Figure[,] map, Random rnd)
+        protected override bool MoveDirection(Figure[,] map, Random rnd, GameField field)
         {
             throw new NotImplementedException();
         }
 
-        protected override bool EatDirection(Figure[,] map, Random rnd)
+        protected override bool EatDirection(Figure[,] map, Random rnd, GameField field)
         {
             throw new NotImplementedException();
         }
