@@ -10,6 +10,8 @@ using System.Windows.Forms;
 
 namespace GeometryChess
 {
+
+    enum SelectedFigure { Triangle, Rectangle, Circle, Delete }
     public partial class GameProcess : Form
     {
         public GameProcess()
@@ -23,14 +25,25 @@ namespace GeometryChess
             field.Placement(figures);
         }
 
-        bool clicTr = false, clicRect = false, clicCicle = false, dlt = true, plaer = true;
+        bool clicStart = false;
+
+        SelectedFigure selectedFigure = SelectedFigure.Delete;
+
+        Dictionary<SelectedFigure, Figure> figs = new Dictionary<SelectedFigure, Figure>()
+        {
+            { SelectedFigure.Triangle , new Triangle() },
+             { SelectedFigure.Rectangle , new Rect() },
+              { SelectedFigure.Circle , new Circle() }
+        };
+
+        bool player = true;
         int touchX, touchY;
         int coins = 150;
         int costT = 13, costR = 13, costC = 12;
 
 
-        Figures[,] figures = new Figures[12, 12];
-        Figures remember;
+        Figure[,] figures = new Figure[12, 12];
+        Figure remember;
         GameField field;
         Graphics graphics;
         //Form f = new Start();
@@ -38,35 +51,32 @@ namespace GeometryChess
 
         private void buttonTriangle_Click(object sender, EventArgs e)
         {
-            clicTr = true;
-            clicRect = false;
-            clicCicle = false;
-            dlt = false;
+            selectedFigure = SelectedFigure.Triangle;
         }
 
         private void buttonRectangle_Click(object sender, EventArgs e)
         {
-            clicTr = false;
-            clicRect = true;
-            clicCicle = false;
-            dlt = false;
+            selectedFigure = SelectedFigure.Rectangle;
         }
 
         private void buttonCircle_Click(object sender, EventArgs e)
         {
-            clicTr = false;
-            clicRect = false;
-            clicCicle = true;
-            dlt = false;
+            selectedFigure = SelectedFigure.Circle;
         }
         private void dealet_Click(object sender, EventArgs e)
         {
-            clicTr = false;
-            clicRect = false;
-            clicCicle = false;
-            dlt = true;
+            selectedFigure = SelectedFigure.Delete;
         }
 
+        private void Stop_Click(object sender, EventArgs e)
+        {
+            clicStart = true;
+        }
+
+        private void button1_Click(object sender, EventArgs e) // доступность редактора
+        {
+            clicStart = false;
+        }
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
@@ -78,47 +88,35 @@ namespace GeometryChess
             float x = 4 + delta / 2 + touchX * field.GetSizeCellW();
             float y = 4 + delta / 2 + touchY * field.GetSizeCellH();
 
-            //create and dealet object //в одну ячейку не должно помещаться более одной фигуры
+            //create and delete object //в одну ячейку не должно помещаться более одной фигуры
             if (field.TouchCell(e.X, e.Y, touchX, touchY) && touchY >= 7)
             {
-                if (clicTr && coins >= 12 && figures[touchX, touchY] == null)
-                {
-                    figures[touchX, touchY] = new Triangle(x, y, w, h, Color.Blue, Color.Black, plaer);
-                    coins -= costT;
-                    //clicTr = false;
-                    remember = figures[touchX, touchY];
-                }
-                if (clicRect && coins >= 12 && figures[touchX, touchY] == null)
-                {
-                    figures[touchX, touchY] = new Rect(x, y, w, h, Color.Blue, Color.Black, plaer);
-                    coins -= costR;
-                    //clicRect = false;
-                    remember = figures[touchX, touchY];
-                }
-                if (clicCicle && coins >= 12 && figures[touchX, touchY] == null)
-                {
-                    figures[touchX, touchY] = new Circle(x, y, w, h, Color.Blue, Color.Black, plaer);
-                    coins -= costC;
-                    //clicCicle = false;
-                    remember = figures[touchX, touchY];
-                }
-                if (dlt)
+
+                if (selectedFigure == SelectedFigure.Delete) 
                 {
                     if (figures[touchX, touchY] is Triangle) coins += costT;
                     if (figures[touchX, touchY] is Rect) coins += costR;
                     if (figures[touchX, touchY] is Circle) coins += costC;
                     figures[touchX, touchY] = null;
                 }
+                else if (CheckPlacement(touchX, touchY))
+                {
+                    figures[touchX, touchY] = figs[selectedFigure].Clone(x, y, w, h, Color.Blue, Color.Black, true);
+                    coins -= costT;
+                    //clicTr = false;
+                    remember = figures[touchX, touchY];
+
+                }
+
             }
             quantitiTtiangle.Text = Convert.ToString(coins / costT);
             quantitiRectangle.Text = Convert.ToString(coins / costR);
             quantitiCircle.Text = Convert.ToString(coins / costC);
         }
 
-
+        private bool CheckPlacement(int x, int y) => coins >= 12 && figures[x, y] == null;
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            
             int h = (int)field.GetSizeCellH();
             int w = (int)field.GetSizeCellW();
 
@@ -128,7 +126,7 @@ namespace GeometryChess
             //draw grid
             for (int i = 0; i < 15; i++)
             {
-                if (i == 7 || i==5) field.Draw(graphics, 4, 3 + i * h, gameField.Width - 4, 3 + i * h);
+                if (i == 7 || i == 5) field.Draw(graphics, 4, 3 + i * h, gameField.Width - 4, 3 + i * h);
                 field.Draw(graphics, 4 + i * w, 4, 4 + i * w, gameField.Height - 4);
                 field.Draw(graphics, 4, 4 + i * h, gameField.Width - 4, 4 + i * h);
             }
@@ -141,40 +139,59 @@ namespace GeometryChess
                     if (figures[i, j] != null) figures[i, j].Draw(graphics);
                 }
             }
-
-
             Refresh();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            //for (int i = 0; i < 12; i++)
-            //{
-            //    for (int j = 0; j < 12; j++)
-            //    {
-            //        if (figures[i, j] != null) figures[i, j].Move();
-            //    }
-            //}
+            if (clicStart)
+            {
 
+                int side = 0, distance = 0, dx = 0, dy = 0;
+                bool isObj = false;
+
+
+                for (int i = 0; i < 12; i++)
+                {
+                    for (int j = 0; j < 12; j++)
+                    {
+                        if (figures[i, j] is Triangle)
+                        {
+                            side = 3;
+                        }
+                        if (figures[i, j] is Rect)
+                        {
+                            side = 4;
+                        }
+                        if (figures[i, j] is Circle)
+                        {
+                            side = 8;
+                        }
+                        figures[i, j].ChangeDirection(side, distance, dx, dy);
+                        figures[i, j]?.Move(dx, dy, isObj);
+                    }
+                }
+
+            }
             Refresh();
         }
 
         private void buttonTriangle_Paint(object sender, PaintEventArgs e)
         {
-            Figures trf = new Triangle(5, 5, buttonTriangle.Width - 10, buttonTriangle.Height - 10, Color.Black, Color.Black, plaer);
+            Figure trf = new Triangle(5, 5, buttonTriangle.Width - 10, buttonTriangle.Height - 10, Color.Black, Color.Black, player);
             trf.Draw(e.Graphics);
         }
 
 
         private void buttonRectangle_Paint(object sender, PaintEventArgs e)
         {
-            Figures trf1 = new Rect(5, 5, buttonRectangle.Width - 10, buttonRectangle.Height - 10, Color.Black, Color.Black, plaer);
+            Figure trf1 = new Rect(5, 5, buttonRectangle.Width - 10, buttonRectangle.Height - 10, Color.Black, Color.Black, player);
             trf1.Draw(e.Graphics);
         }
 
         private void buttonCircle_Paint(object sender, PaintEventArgs e)
         {
-            Figures trf2 = new Circle(5, 5, buttonCircle.Width - 10, buttonCircle.Height - 10, Color.Black, Color.Black, plaer);
+            Figure trf2 = new Circle(5, 5, buttonCircle.Width - 10, buttonCircle.Height - 10, Color.Black, Color.Black, player);
             trf2.Draw(e.Graphics);
 
         }

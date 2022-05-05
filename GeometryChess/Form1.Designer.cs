@@ -39,7 +39,7 @@
             this.buttonCircle = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.dealet = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.Start = new System.Windows.Forms.Button();
             this.Stop = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gameField)).BeginInit();
             this.SuspendLayout();
@@ -147,15 +147,16 @@
             this.dealet.UseVisualStyleBackColor = true;
             this.dealet.Click += new System.EventHandler(this.dealet_Click);
             // 
-            // button1
+            // Start
             // 
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(690, 453);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(125, 47);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "Запустить";
-            this.button1.UseVisualStyleBackColor = true;
+            this.Start.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Start.Location = new System.Drawing.Point(690, 453);
+            this.Start.Name = "Start";
+            this.Start.Size = new System.Drawing.Size(125, 47);
+            this.Start.TabIndex = 10;
+            this.Start.Text = "Запустить";
+            this.Start.UseVisualStyleBackColor = true;
+            this.Start.Click += new System.EventHandler(this.button1_Click);
             // 
             // Stop
             // 
@@ -166,6 +167,7 @@
             this.Stop.TabIndex = 11;
             this.Stop.Text = "Остановить";
             this.Stop.UseVisualStyleBackColor = true;
+            this.Stop.Click += new System.EventHandler(this.Stop_Click);
             // 
             // GameProcess
             // 
@@ -173,7 +175,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(902, 653);
             this.Controls.Add(this.Stop);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.Start);
             this.Controls.Add(this.dealet);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonCircle);
@@ -208,7 +210,7 @@
         private System.Windows.Forms.Button buttonCircle;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button dealet;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button Start;
         private System.Windows.Forms.Button Stop;
     }
 }

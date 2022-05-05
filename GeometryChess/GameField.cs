@@ -9,21 +9,21 @@ namespace GeometryChess
 {
     internal class GameField
     {
-        int width, height; 
+        int width, height;
         float sizeCellX, sizeCellY;
 
-        
+
         //Bitmap bitmap;
         //Size size;
 
 
         public GameField(int width, int height) //Image image
         {
-            this.width = width-8;
-            this.height = height-8;
+            this.width = width - 8;
+            this.height = height - 8;
             sizeCellX = (this.width) / 12;
             sizeCellY = (this.height) / 12;
-            
+
             //size = new Size(width, height);
             //bitmap = new Bitmap(image, size);
         }
@@ -33,7 +33,7 @@ namespace GeometryChess
         //    return bitmap;
         //}
 
-        internal void Placement(Figures[,] figures)
+        internal void Placement(Figure[,] figures)
         {
             int coins = 150;
             bool plaer = false;
@@ -44,7 +44,7 @@ namespace GeometryChess
 
             Random comPlan = new Random();
 
-            while (coins>=12)
+            while (coins >= 12)
             {
                 int touchX = comPlan.Next(12);
                 int touchY = comPlan.Next(5);
@@ -78,18 +78,18 @@ namespace GeometryChess
             g.DrawLine(new Pen(Color.Black), x1, y1, x2, y2);
         }
 
-        public int TouchCellX(int X) 
+        public int TouchCellX(int X)
         {
-            return (int)((X-2) / sizeCellX);
+            return (int)((X - 2) / sizeCellX);
         }
         public int TouchCellY(int Y)
         {
-            return (int)((Y-2) / sizeCellY);
+            return (int)((Y - 2) / sizeCellY);
         }
 
         public bool TouchCell(int X, int Y, int i, int j)
         {
-            return X > i * sizeCellX && Y > j * sizeCellY && X< (i+1) * sizeCellX && Y < (j+1) * sizeCellY;
+            return X > i * sizeCellX && Y > j * sizeCellY && X < (i + 1) * sizeCellX && Y < (j + 1) * sizeCellY;
         }
 
         public float GetSizeCellW()
