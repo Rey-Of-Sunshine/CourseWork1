@@ -7,22 +7,25 @@ namespace GeometryChess
     {
         protected float x, y;
         protected int w, h;
-        protected bool isPlayer;
+        public bool isPlayer { get; protected set; }
         protected int distanceStap = 0, distanceHit = 0;
         protected int indexX, indexY;
         protected SolidBrush brush;
         protected Pen pen;
         protected Color color, colorP;
-
-        protected bool ChackIndex(Figure[,] map, int distX, int distY) => indexX + distX < 13 && indexX + distX >= 0 && indexX + distY < 13 && indexX + distY >= 0 && map[indexX + distX, indexY + distY] != null;
+        
+        protected bool ChackIndex(Figure[,] map, int distX, int distY) => indexX + distX < 12 && indexX + distX >= 0 && indexY + distY < 12 && indexY + distY >= 0 && map[indexX + distX, indexY + distY] == null;
+        protected bool ChackIndexEat(Figure[,] map, int distX, int distY) => indexX + distX < 12 && indexX + distX >= 0 && indexY + distY < 12 && indexY + distY >= 0 && map[indexX + distX, indexY + distY] != null && map[indexX + distX, indexY + distY].isPlayer != isPlayer;
 
         public Figure() { }
-        protected Figure( float x, float y, int w, int h, Color color, Color colorP, bool player)
+        protected Figure(int indexX, int indexY, float x, float y, int w, int h, Color color, Color colorP, bool player)
         {
             this.x = x;
             this.y = y;
             this.w = w;
             this.h = h;
+            this.indexX= indexX;
+            this.indexY= indexY;
             this.color = color;
             this.colorP = colorP;
             isPlayer = player;
@@ -59,7 +62,7 @@ namespace GeometryChess
 
         public Triangle() { }
 
-        public Triangle(float x, float y, int w, int h, Color color, Color colorP, bool player) : base(x, y, w, h, color, colorP, player)
+        public Triangle(int indexX, int indexY, float x, float y, int w, int h, Color color, Color colorP, bool isPlayer) : base(indexX, indexY, x, y, w, h, color, colorP, isPlayer)
         {
             distanceStap = 3;
             distanceHit = 2;
@@ -85,11 +88,9 @@ namespace GeometryChess
             g.DrawPolygon(pen, point);
         }
 
-        public override Figure Clone(int indexX, int indexY, float x, float y, int w, int h, Color color, Color colorP, bool player)
+        public override Figure Clone(int indexX, int indexY, float x, float y, int w, int h, Color color, Color colorP, bool isPlayer)
         {
-            this.indexX = indexX;
-            this.indexY = indexY;
-            return new Triangle(x, y, w, h, color, colorP, player);
+            return new Triangle(indexX, indexY, x, y, w, h, color, colorP, isPlayer);
         }
 
         // траектория шага: x=x, y-=2(3, 4); x=-y (x<x, y>y); x=y (x>x, y>y) 2-4 клетки
@@ -148,7 +149,7 @@ namespace GeometryChess
                     break;
             }
 
-            if (ChackIndex(map, distX, distY))
+            if (ChackIndexEat(map, distX, distY))
             {
                 x += distX * field.GetSizeCellH();
                 y += distY * field.GetSizeCellH();
@@ -164,7 +165,7 @@ namespace GeometryChess
     {
         public Rect() { }
 
-        public Rect(float x, float y, int w, int h, Color color, Color colorP, bool player) : base(x, y, w, h, color, colorP, player)
+        public Rect(int indexX, int indexY, float x, float y, int w, int h, Color color, Color colorP, bool isPlayer) : base(indexX, indexY, x, y, w, h, color, colorP, isPlayer)
         {
             distanceStap = 1;
             distanceHit = 3;
@@ -177,11 +178,9 @@ namespace GeometryChess
         }
 
         
-        public override Figure Clone(int indexX, int indexY, float x, float y, int w, int h, Color color, Color colorP, bool player)
+        public override Figure Clone(int indexX, int indexY, float x, float y, int w, int h, Color color, Color colorP, bool isPlayer)
         {
-            this.indexX = indexX;
-            this.indexY = indexY;
-            return new Rect(x, y, w, h, color, colorP, player);
+            return new Rect(indexX, indexY, x, y, w, h, color, colorP, isPlayer);
         }
 
         //траектория шага: x=-y; x=y 1-2 клетки
@@ -246,7 +245,7 @@ namespace GeometryChess
                     break;
             }
 
-            if (ChackIndex(map, distX, distY))
+            if (ChackIndexEat(map, distX, distY))
             {
                 x += distX * field.GetSizeCellH();
                 y += distY * field.GetSizeCellH();
@@ -262,7 +261,7 @@ namespace GeometryChess
     {
         public Circle() { }
 
-        public Circle(float x, float y, int w, int h, Color color, Color colorP, bool player) : base(x, y, w, h, color, colorP, player)
+        public Circle(int indexX, int indexY, float x, float y, int w, int h, Color color, Color colorP, bool isPlayer) : base(indexX, indexY, x, y, w, h, color, colorP, isPlayer)
         {
             distanceStap = 2;
             distanceHit = 1;
@@ -274,11 +273,9 @@ namespace GeometryChess
             g.DrawEllipse(pen, x, y, w, h);
         }
 
-        public override Figure Clone(int indexX, int indexY, float x, float y, int w, int h, Color color, Color colorP, bool player)
+        public override Figure Clone(int indexX, int indexY, float x, float y, int w, int h, Color color, Color colorP, bool isPlayer)
         {
-            this.indexX = indexX;
-            this.indexY = indexY;
-            return new Circle(x, y, w, h, color, colorP, player);
+            return new Circle(indexX, indexY, x, y, w, h, color, colorP, isPlayer);
         }
 
         //траектория шага: x=-y; x=y  через 1 клетку
@@ -369,7 +366,7 @@ namespace GeometryChess
             }
 
 
-            if (ChackIndex(map, distX, distY))
+            if (ChackIndexEat(map, distX, distY))
             {
                 x += distX * field.GetSizeCellH();
                 y += distY * field.GetSizeCellH();

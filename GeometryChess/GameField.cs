@@ -56,15 +56,15 @@ namespace GeometryChess
                     switch (comPlan.Next(3))
                     {
                         case 0:
-                            figures[touchX, touchY] = new Triangle(x, y, w, h, Color.Green, Color.Black, plaer);
+                            figures[touchX, touchY] = new Triangle(touchX, touchY, x, y, w, h, Color.Green, Color.Black, plaer);
                             coins -= costT;
                             break;
                         case 1:
-                            figures[touchX, touchY] = new Rect(x, y, w, h, Color.Green, Color.Black, plaer);
+                            figures[touchX, touchY] = new Rect(touchX, touchY, x, y, w, h, Color.Green, Color.Black, plaer);
                             coins -= costR;
                             break;
                         case 2:
-                            figures[touchX, touchY] = new Circle(x, y, w, h, Color.Green, Color.Black, plaer);
+                            figures[touchX, touchY] = new Circle(touchX, touchY, x, y, w, h, Color.Green, Color.Black, plaer);
                             coins -= costC;
                             break;
                     }

@@ -127,20 +127,23 @@ namespace GeometryChess
             Refresh();
         }
 
-        private void Form1_Paint(object sender, PaintEventArgs e)
+        //private void Form1_Paint(object sender, PaintEventArgs e)
+        //{
+        //    gameField.Image = new Bitmap(gameField.Width, gameField.Height);
+        //    graphics = Graphics.FromImage(gameField.Image);
+        //}
+            
+        private void gameField_Paint(object sender, PaintEventArgs e)
         {
             int h = (int)field.GetSizeCellH();
             int w = (int)field.GetSizeCellW();
-
-            gameField.Image = new Bitmap(gameField.Width, gameField.Height);
-            graphics = Graphics.FromImage(gameField.Image);
-
+            
             //draw grid
             for (int i = 0; i < 15; i++)
             {
-                if (i == 7 || i == 5) field.Draw(graphics, 4, 3 + i * h, gameField.Width - 4, 3 + i * h);
-                field.Draw(graphics, 4 + i * w, 4, 4 + i * w, gameField.Height - 4);
-                field.Draw(graphics, 4, 4 + i * h, gameField.Width - 4, 4 + i * h);
+                if (i == 7 || i == 5) field.Draw(e.Graphics, 4, 3 + i * h, gameField.Width - 4, 3 + i * h);
+                field.Draw(e.Graphics, 4 + i * w, 4, 4 + i * w, gameField.Height - 4);
+                field.Draw(e.Graphics, 4, 4 + i * h, gameField.Width - 4, 4 + i * h);
             }
 
             //draw figures
@@ -148,26 +151,27 @@ namespace GeometryChess
             {
                 for (int j = 0; j < 12; j++)
                 {
-                    if (figures[i, j] != null) figures[i, j].Draw(graphics);
+                    if (figures[i, j] != null) figures[i, j].Draw(e.Graphics);
                 }
             }
         }
 
         private void buttonTriangle_Paint(object sender, PaintEventArgs e)
         {
-            Figure trf = new Triangle(5, 5, buttonTriangle.Width - 10, buttonTriangle.Height - 10, Color.Black, Color.Black, player);
+            Figure trf = new Triangle(-1, -1, 5, 5, buttonTriangle.Width - 10, buttonTriangle.Height - 10, Color.Black, Color.Black, player);
             trf.Draw(e.Graphics);
         }
 
+
         private void buttonRectangle_Paint(object sender, PaintEventArgs e)
         {
-            Figure trf1 = new Rect(5, 5, buttonRectangle.Width - 10, buttonRectangle.Height - 10, Color.Black, Color.Black, player);
+            Figure trf1 = new Rect(-1, -1, 5, 5, buttonRectangle.Width - 10, buttonRectangle.Height - 10, Color.Black, Color.Black, player);
             trf1.Draw(e.Graphics);
         }
 
         private void buttonCircle_Paint(object sender, PaintEventArgs e)
         {
-            Figure trf2 = new Circle(5, 5, buttonCircle.Width - 10, buttonCircle.Height - 10, Color.Black, Color.Black, player);
+            Figure trf2 = new Circle(-1, -1, 5, 5, buttonCircle.Width - 10, buttonCircle.Height - 10, Color.Black, Color.Black, player);
             trf2.Draw(e.Graphics);
 
         }

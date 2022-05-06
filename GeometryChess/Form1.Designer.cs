@@ -51,6 +51,7 @@
             this.gameField.Size = new System.Drawing.Size(408, 408);
             this.gameField.TabIndex = 0;
             this.gameField.TabStop = false;
+            this.gameField.Paint += new System.Windows.Forms.PaintEventHandler(this.gameField_Paint);
             this.gameField.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
             // 
             // quantitiTtiangle
@@ -192,7 +193,7 @@
             this.Name = "GameProcess";
             this.Text = "GameProcess";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
+            
             ((System.ComponentModel.ISupportInitialize)(this.gameField)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
