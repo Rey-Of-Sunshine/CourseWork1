@@ -42,6 +42,7 @@ namespace GeometryChess
         int costT = 13, costR = 13, costC = 12;
 
 
+        Random rnd = new Random();
         Figure[,] figures = new Figure[12, 12];
         GameField field;
         Graphics graphics;
@@ -69,12 +70,12 @@ namespace GeometryChess
 
         private void Stop_Click(object sender, EventArgs e)
         {
-            clicStart = true;
+            clicStart = false;
         }
 
         private void button1_Click(object sender, EventArgs e) // доступность редактора
         {
-            clicStart = false;
+            clicStart = true;
         }
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
@@ -100,12 +101,9 @@ namespace GeometryChess
                 }
                 else if (CheckPlacement(touchX, touchY))
                 {
-                    figures[touchX, touchY] = figs[selectedFigure].Clone(x, y, w, h, Color.Blue, Color.Black, true);
-                    figures[touchX, touchY].indexX = touchX;
-                    figures[touchX, touchY].indexY = touchY;
+                    figures[touchX, touchY] = figs[selectedFigure].Clone(touchX, touchY, x, y, w, h, Color.Blue, Color.Black, true);
                     coins -= costT;
                 }
-
             }
             quantitiTtiangle.Text = Convert.ToString(coins / costT);
             quantitiRectangle.Text = Convert.ToString(coins / costR);
@@ -113,6 +111,22 @@ namespace GeometryChess
         }
 
         private bool CheckPlacement(int x, int y) => coins >= 12 && figures[x, y] == null;
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (clicStart)
+            {
+                for (int i = 0; i < 12; i++)
+                {
+                    for (int j = 0; j < 12; j++)
+                    {
+                        figures[i, j]?.Move(figures, rnd, field);
+                    }
+                }
+            }
+            Refresh();
+        }
+
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
             int h = (int)field.GetSizeCellH();
@@ -140,46 +154,11 @@ namespace GeometryChess
             Refresh();
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            if (clicStart)
-            {
-
-                int side = 0, distance = 0, dx = 0, dy = 0;
-                bool isObj = false;
-
-
-                for (int i = 0; i < 12; i++)
-                {
-                    for (int j = 0; j < 12; j++)
-                    {
-                        if (figures[i, j] is Triangle)
-                        {
-                            side = 3;
-                        }
-                        if (figures[i, j] is Rect)
-                        {
-                            side = 4;
-                        }
-                        if (figures[i, j] is Circle)
-                        {
-                            side = 8;
-                        }
-                        //figures[i, j].ChangeDirection(side, distance, dx, dy);
-                        //figures[i, j]?.Move(dx, dy, isObj);
-                    }
-                }
-
-            }
-            Refresh();
-        }
-
         private void buttonTriangle_Paint(object sender, PaintEventArgs e)
         {
             Figure trf = new Triangle(5, 5, buttonTriangle.Width - 10, buttonTriangle.Height - 10, Color.Black, Color.Black, player);
             trf.Draw(e.Graphics);
         }
-
 
         private void buttonRectangle_Paint(object sender, PaintEventArgs e)
         {

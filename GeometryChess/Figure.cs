@@ -1,39 +1,29 @@
 ﻿using System.Drawing;
 using System;
-using System.Collections.Generic;
 
 namespace GeometryChess
 {
-    enum WayFigure { NW, N, NE, E, SE, S, SW, W}
-    
     internal abstract class Figure
     {
         protected float x, y;
-        protected int w, h, dx, dy;
+        protected int w, h;
+        protected bool isPlayer;
+        protected int distanceStap = 0, distanceHit = 0;
+        protected int indexX, indexY;
         protected SolidBrush brush;
         protected Pen pen;
-        protected bool isPlayer;
-        protected int distance = 0;
-        public int indexX
-        {
-            set { if (value>=0 && value<13) indexX = value; }
-            get { return indexX; }
-        }
-
-        public int indexY
-        {
-            set { if (value >= 0 && value < 13) indexY = value; }
-            get { return indexY; }
-        }
+        protected Color color, colorP;
 
         public Figure() { }
-        protected Figure(float x, float y, int w, int h, Color color, Color colorP, bool player)
+        protected Figure( float x, float y, int w, int h, Color color, Color colorP, bool player)
         {
             this.x = x;
             this.y = y;
             this.w = w;
             this.h = h;
-            this.isPlayer = player;
+            this.color = color;
+            this.colorP = colorP;
+            isPlayer = player;
 
             brush = new SolidBrush(color);
             pen = new Pen(colorP);
@@ -44,26 +34,13 @@ namespace GeometryChess
         //    return coins / cost;
         //}
 
-        WayFigure wayFigure =WayFigure.N;
-        protected Dictionary<WayFigure, int[]> figWay = new Dictionary<WayFigure, int[]>()
-        {
-            { WayFigure.NW , new int[]{ -1, -1 } },
-             { WayFigure.N , new int[]{ 0, -1 } },
-              { WayFigure.NE , new int[]{ 1, -1 } },
-              { WayFigure.E , new int[]{ 1, 0 } },
-              { WayFigure.SE , new int[]{ 1, 1 } },
-              { WayFigure.S , new int[]{ 0, 1 } },
-              { WayFigure.SW , new int[]{ -1, 1 } },
-              { WayFigure.W , new int[]{ -1, 0 } },
-        };
-        //protected bool CheckWay(Figure[,] map) => map[indexX + distance * figWay[WayFigure.N][0], indexY + distance * figWay[WayFigure.N][1]] == null;
 
         internal abstract void Draw(Graphics g);
 
         protected abstract bool MoveDirection(Figure[,] map, Random rnd, GameField field);
         protected abstract bool EatDirection(Figure[,] map, Random rnd, GameField field);
 
-        public abstract Figure Clone(float x, float y, int w, int h, Color color, Color colorP, bool player);
+        public abstract Figure Clone(int indexX, int indexY, float x, float y, int w, int h, Color color, Color colorP, bool player);
 
         internal void Move(Figure[,] map, Random rnd, GameField field)
         {
@@ -82,7 +59,8 @@ namespace GeometryChess
 
         public Triangle(float x, float y, int w, int h, Color color, Color colorP, bool player) : base(x, y, w, h, color, colorP, player)
         {
-            distance = 3;
+            distanceStap = 3;
+            distanceHit = 2;
         }
 
         internal override void Draw(Graphics g)
@@ -105,8 +83,10 @@ namespace GeometryChess
             g.DrawPolygon(pen, point);
         }
 
-        public override Figure Clone(float x, float y, int w, int h, Color color, Color colorP, bool player)
+        public override Figure Clone(int indexX, int indexY, float x, float y, int w, int h, Color color, Color colorP, bool player)
         {
+            this.indexX = indexX;
+            this.indexY = indexY;
             return new Triangle(x, y, w, h, color, colorP, player);
         }
 
@@ -114,38 +94,68 @@ namespace GeometryChess
         protected override bool MoveDirection(Figure[,] map, Random rnd, GameField field)
         {
             int side = rnd.Next(3);
-            int wayX = 0, wayY = 0;
+            int distX=0, distY=0;
 
             switch (side)
             {
                 case 0: //вперёд
-                    wayX = figWay[WayFigure.N][0];
-                    wayY = figWay[WayFigure.N][1];
+                    distX = 0;
+                    distY = -distanceStap;
                     //y = (map[indexX, indexY - distance] == null) ? -distance * field.GetSizeCellH() : +0;
                     //dy = -distance;
                     break;
                 case 1: //назад влево
-                    wayX = figWay[WayFigure.SW][0];
-                    wayY = figWay[WayFigure.SW][1];
+                    distX = -distanceStap;
+                    distY = distanceStap;
                     break;
                 case 2: // назад вправо
-                    wayX = figWay[WayFigure.SE][0];
-                    wayY = figWay[WayFigure.SE][1];
+                    distX = distanceStap;
+                    distY = distanceStap;
                     break;
+            }
 
-            }
-            if (map[indexX + distance * wayX, indexY + distance * wayY] == null)
+            if (map[indexX + distX, indexY + distY] == null)
             {
-                x += distance * field.GetSizeCellH() * figWay[WayFigure.N][0];
-                y += distance * field.GetSizeCellH() * figWay[WayFigure.N][1];
+                x += distX * field.GetSizeCellH();
+                y += distY * field.GetSizeCellH();
+                map[indexX + distX, indexY + distY] = map[indexX, indexY];
+                map[indexX, indexY] = null;
+                return true;
             }
-            return true;
+            else return false;
         }
 
 
         protected override bool EatDirection(Figure[,] map, Random rnd, GameField field)
         {
-            throw new NotImplementedException();
+            int side = rnd.Next(3);
+            int distX=0, distY=0;
+
+            switch (side)
+            {
+                case 0: //назад
+                    distX = 0;
+                    distY = distanceHit;
+                    break;
+                case 1: // влево
+                    distX = -distanceHit;
+                    distY = 0;
+                    break;
+                case 2: // вправо
+                    distX = distanceHit;
+                    distY = 0;
+                    break;
+            }
+
+            if (map[indexX + distX, indexY + distY] != null)
+            {
+                x += distX * field.GetSizeCellH();
+                y += distY * field.GetSizeCellH();
+                map[indexX + distX, indexY + distY] = map[indexX, indexY];
+                map[indexX, indexY] = null;
+                return true;
+            }
+            else return false;
         }
     }
 
@@ -155,7 +165,8 @@ namespace GeometryChess
 
         public Rect(float x, float y, int w, int h, Color color, Color colorP, bool player) : base(x, y, w, h, color, colorP, player)
         {
-            distance = 3;
+            distanceStap = 1;
+            distanceHit = 3;
         }
 
         internal override void Draw(Graphics g)
@@ -164,44 +175,85 @@ namespace GeometryChess
             g.DrawRectangle(pen, x, y, w, h);
         }
 
-        //траектория шага: x=-y; x=y 1-2 клетки
-        internal override void ChangeDirection(int distance)
+        
+        public override Figure Clone(int indexX, int indexY, float x, float y, int w, int h, Color color, Color colorP, bool player)
         {
+            this.indexX = indexX;
+            this.indexY = indexY;
+            return new Rect(x, y, w, h, color, colorP, player);
+        }
 
+        //траектория шага: x=-y; x=y 1-2 клетки
+        protected override bool MoveDirection(Figure[,] map, Random rnd, GameField field)
+        {
+            int side = rnd.Next(4);
+            int distX = 0, distY = 0;
 
             switch (side)
             {
                 case 0: //вперёд влево
-                    dx = -distance;
-                    dy = -distance;
+                    distX = -distanceStap;
+                    distY = -distanceStap;
                     break;
                 case 1: //вперёд вправо
-                    dx = distance;
-                    dy = -distance;
+                    distX = distanceStap;
+                    distY = -distanceStap;
                     break;
                 case 2: //назад вправо
-                    dx = distance;
-                    dy = distance;
+                    distX = distanceStap;
+                    distY = distanceStap;
                     break;
                 case 3: //назад влево
-                    dx = -distance;
-                    dy = distance;
+                    distX = -distanceStap;
+                    distY = distanceStap;
                     break;
             }
-        }
-        public override Figure Clone(float x, float y, int w, int h, Color color, Color colorP, bool player)
-        {
-            return new Rect(x, y, w, h, color, colorP, player);
-        }
 
-        protected override bool MoveDirection(Figure[,] map, Random rnd, GameField field)
-        {
-            throw new NotImplementedException();
+            if (map[indexX + distX, indexY + distY] == null)
+            {
+                x += distX * field.GetSizeCellH();
+                y += distY * field.GetSizeCellH();
+                map[indexX + distX, indexY + distY] = map[indexX, indexY];
+                map[indexX, indexY] = null;
+                return true;
+            }
+            else return false;
         }
 
         protected override bool EatDirection(Figure[,] map, Random rnd, GameField field)
         {
-            throw new NotImplementedException();
+            int side = rnd.Next(4);
+            int distX = 0, distY = 0;
+
+            switch (side)
+            {
+                case 0: //вперёд
+                    distX = 0;
+                    distY = -distanceHit;
+                    break;
+                case 1: //вправо
+                    distX = distanceHit;
+                    distY = 0;
+                    break;
+                case 2: //влево
+                    distX = distanceHit;
+                    distY = 0;
+                    break;
+                case 3: //назад
+                    distX = 0;
+                    distY = distanceHit;
+                    break;
+            }
+
+            if (map[indexX + distX, indexY + distY] != null)
+            {
+                x += distX * field.GetSizeCellH();
+                y += distY * field.GetSizeCellH();
+                map[indexX + distX, indexY + distY] = map[indexX, indexY];
+                map[indexX, indexY] = null;
+                return true;
+            }
+            else return false;
         }
     }
 
@@ -211,7 +263,8 @@ namespace GeometryChess
 
         public Circle(float x, float y, int w, int h, Color color, Color colorP, bool player) : base(x, y, w, h, color, colorP, player)
         {
-            distance = 3;
+            distanceStap = 2;
+            distanceHit = 1;
         }
 
         internal override void Draw(Graphics g)
@@ -220,54 +273,110 @@ namespace GeometryChess
             g.DrawEllipse(pen, x, y, w, h);
         }
 
-        //траектория шага: x=-y; x=y  через 1 клетку
-        internal override void ChangeDirection(int distance)
+        public override Figure Clone(int indexX, int indexY, float x, float y, int w, int h, Color color, Color colorP, bool player)
         {
-            switch (side)
-            {
-                case 0://вперёд влево
-                    dx = -distance;
-                    dy = -distance;
-                    break;
-                case 1: //вперёд
-                    dy = -distance;
-                    break;
-                case 2://вперёд вправо
-                    dx = distance;
-                    dy = -distance;
-                    break;
-                case 3: //вправо
-                    dx = distance;
-                    break;
-                case 4://назад вправо
-                    dx = distance;
-                    dy = distance;
-                    break;
-                case 5: //назад
-                    dy = distance;
-                    break;
-                case 6://назад влево
-                    dx = -distance;
-                    dy = distance;
-                    break;
-                case 7:  //влево
-                    dx = -distance;
-                    break;
-            }
-        }
-        public override Figure Clone(float x, float y, int w, int h, Color color, Color colorP, bool player)
-        {
+            this.indexX = indexX;
+            this.indexY = indexY;
             return new Circle(x, y, w, h, color, colorP, player);
         }
 
+        //траектория шага: x=-y; x=y  через 1 клетку
         protected override bool MoveDirection(Figure[,] map, Random rnd, GameField field)
         {
-            throw new NotImplementedException();
+            int side = rnd.Next(8);
+            int distX = 0, distY = 0;
+
+            switch (side)
+            {
+                case 0://вперёд влево
+                    distX = -distanceStap;
+                    distY = -distanceStap;
+                    break;
+                case 1: //вперёд
+                    distY = -distanceStap;
+                    break;
+                case 2://вперёд вправо
+                    distX = distanceStap;
+                    distY = -distanceStap;
+                    break;
+                case 3: //вправо
+                    distX = distanceStap;
+                    break;
+                case 4://назад вправо
+                    distX = distanceStap;
+                    distY = distanceStap;
+                    break;
+                case 5: //назад
+                    distY = distanceStap;
+                    break;
+                case 6://назад влево
+                    distX = -distanceStap;
+                    distY = distanceStap;
+                    break;
+                case 7:  //влево
+                    distX = -distanceStap;
+                    break;
+            }
+
+
+            if (map[indexX + distX, indexY + distY] == null)
+            {
+                x += distX * field.GetSizeCellH();
+                y += distY * field.GetSizeCellH();
+                map[indexX + distX, indexY + distY] = map[indexX, indexY];
+                map[indexX, indexY] = null;
+                return true;
+            }
+            else return false;
         }
 
         protected override bool EatDirection(Figure[,] map, Random rnd, GameField field)
         {
-            throw new NotImplementedException();
+            int side = rnd.Next(8);
+            int distX = 0, distY = 0;
+
+            switch (side)
+            {
+                case 0://вперёд влево
+                    distX = -distanceHit;
+                    distY = -distanceHit;
+                    break;
+                case 1: //вперёд
+                    distY = -distanceHit;
+                    break;
+                case 2://вперёд вправо
+                    distX = distanceHit;
+                    distY = -distanceHit;
+                    break;
+                case 3: //вправо
+                    distX = distanceHit;
+                    break;
+                case 4://назад вправо
+                    distX = distanceHit;
+                    distY = distanceHit;
+                    break;
+                case 5: //назад
+                    distY = distanceHit;
+                    break;
+                case 6://назад влево
+                    distX = -distanceHit;
+                    distY = distanceHit;
+                    break;
+                case 7:  //влево
+                    distX = -distanceHit;
+                    break;
+            }
+
+
+            if (map[indexX + distX, indexY + distY] != null)
+            {
+                x += distX * field.GetSizeCellH();
+                y += distY * field.GetSizeCellH();
+                map[indexX + distX, indexY + distY] = map[indexX, indexY];
+                map[indexX, indexY] = null;
+                return true;
+            }
+            else return false;
         }
     }
 }
