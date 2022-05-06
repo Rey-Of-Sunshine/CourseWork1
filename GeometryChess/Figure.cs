@@ -14,6 +14,8 @@ namespace GeometryChess
         protected Pen pen;
         protected Color color, colorP;
 
+        protected bool ChackIndex(Figure[,] map, int distX, int distY) => indexX + distX < 13 && indexX + distX >= 0 && indexX + distY < 13 && indexX + distY >= 0 && map[indexX + distX, indexY + distY] != null;
+
         public Figure() { }
         protected Figure( float x, float y, int w, int h, Color color, Color colorP, bool player)
         {
@@ -114,7 +116,7 @@ namespace GeometryChess
                     break;
             }
 
-            if (map[indexX + distX, indexY + distY] == null)
+            if (ChackIndex(map, distX, distY))
             {
                 x += distX * field.GetSizeCellH();
                 y += distY * field.GetSizeCellH();
@@ -124,7 +126,6 @@ namespace GeometryChess
             }
             else return false;
         }
-
 
         protected override bool EatDirection(Figure[,] map, Random rnd, GameField field)
         {
@@ -147,7 +148,7 @@ namespace GeometryChess
                     break;
             }
 
-            if (map[indexX + distX, indexY + distY] != null)
+            if (ChackIndex(map, distX, distY))
             {
                 x += distX * field.GetSizeCellH();
                 y += distY * field.GetSizeCellH();
@@ -209,7 +210,7 @@ namespace GeometryChess
                     break;
             }
 
-            if (map[indexX + distX, indexY + distY] == null)
+            if (ChackIndex(map, distX, distY))
             {
                 x += distX * field.GetSizeCellH();
                 y += distY * field.GetSizeCellH();
@@ -245,7 +246,7 @@ namespace GeometryChess
                     break;
             }
 
-            if (map[indexX + distX, indexY + distY] != null)
+            if (ChackIndex(map, distX, distY))
             {
                 x += distX * field.GetSizeCellH();
                 y += distY * field.GetSizeCellH();
@@ -319,7 +320,7 @@ namespace GeometryChess
             }
 
 
-            if (map[indexX + distX, indexY + distY] == null)
+            if (ChackIndex(map, distX, distY))
             {
                 x += distX * field.GetSizeCellH();
                 y += distY * field.GetSizeCellH();
@@ -368,7 +369,7 @@ namespace GeometryChess
             }
 
 
-            if (map[indexX + distX, indexY + distY] != null)
+            if (ChackIndex(map, distX, distY))
             {
                 x += distX * field.GetSizeCellH();
                 y += distY * field.GetSizeCellH();

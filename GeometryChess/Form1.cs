@@ -151,7 +151,6 @@ namespace GeometryChess
                     if (figures[i, j] != null) figures[i, j].Draw(graphics);
                 }
             }
-            Refresh();
         }
 
         private void buttonTriangle_Paint(object sender, PaintEventArgs e)
