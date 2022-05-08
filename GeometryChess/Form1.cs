@@ -38,6 +38,7 @@ namespace GeometryChess
 
         bool player = true;
         int touchX, touchY;
+        int stapPl = 0, stapCm = 0;
         int coins = 150;
         int costT = 13, costR = 13, costC = 12;
 
@@ -45,8 +46,6 @@ namespace GeometryChess
         Random rnd = new Random();
         Figure[,] figures = new Figure[12, 12];
         GameField field;
-        Graphics graphics;
-        //Form f = new Start();
 
 
         private void buttonTriangle_Click(object sender, EventArgs e)
@@ -76,6 +75,10 @@ namespace GeometryChess
         private void button1_Click(object sender, EventArgs e) // доступность редактора
         {
             clicStart = true;
+            buttonTriangle.Enabled = false;
+            buttonRectangle.Enabled = false;
+            buttonCircle.Enabled = false;
+            delete.Enabled = false;
         }
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
@@ -92,7 +95,7 @@ namespace GeometryChess
             if (field.TouchCell(e.X, e.Y, touchX, touchY) && touchY >= 7)
             {
 
-                if (selectedFigure == SelectedFigure.Delete) 
+                if (selectedFigure == SelectedFigure.Delete)
                 {
                     if (figures[touchX, touchY] is Triangle) coins += costT;
                     if (figures[touchX, touchY] is Rect) coins += costR;
@@ -112,6 +115,21 @@ namespace GeometryChess
 
         private bool CheckPlacement(int x, int y) => coins >= 12 && figures[x, y] == null;
 
+        private bool CheckFigurePl(int a) => stapPl == stapCm && stapPl % 3 == a;
+        private bool CheckFigureCm(int a) => stapPl > stapCm && stapCm % 3 == a;
+
+        private void doMovePl (Figure f)
+        {
+            f.Move(figures, rnd, field);
+            stapPl++;
+        }
+
+        private void doMoveCm(Figure f)
+        {
+            f.Move(figures, rnd, field);
+            stapCm++;
+        }
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (clicStart)
@@ -120,30 +138,30 @@ namespace GeometryChess
                 {
                     for (int j = 0; j < 12; j++)
                     {
-                        figures[i, j]?.Move(figures, rnd, field);
+                        if (figures[i, j] is Triangle && CheckFigurePl(0)) doMovePl(figures[i, j]);
+                        if (figures[i, j] is Triangle && CheckFigureCm(0)) doMoveCm(figures[i, j]);
+                        if (figures[i, j] is Rect && CheckFigurePl(1)) doMovePl(figures[i, j]);
+                        if (figures[i, j] is Rect && CheckFigureCm(1)) doMoveCm(figures[i, j]);
+                        if (figures[i, j] is Circle && CheckFigurePl(2)) doMovePl(figures[i, j]);
+                        if (figures[i, j] is Circle && CheckFigureCm(2)) doMoveCm(figures[i, j]);
+                        //figures[i, j]?.Move(figures, rnd, field);
                     }
                 }
             }
             Refresh();
         }
 
-        //private void Form1_Paint(object sender, PaintEventArgs e)
-        //{
-        //    gameField.Image = new Bitmap(gameField.Width, gameField.Height);
-        //    graphics = Graphics.FromImage(gameField.Image);
-        //}
-            
         private void gameField_Paint(object sender, PaintEventArgs e)
         {
             int h = (int)field.GetSizeCellH();
             int w = (int)field.GetSizeCellW();
-            
+
             //draw grid
             for (int i = 0; i < 15; i++)
             {
-                if (i == 7 || i == 5) field.Draw(e.Graphics, 4, 3 + i * h, gameField.Width - 4, 3 + i * h);
-                field.Draw(e.Graphics, 4 + i * w, 4, 4 + i * w, gameField.Height - 4);
-                field.Draw(e.Graphics, 4, 4 + i * h, gameField.Width - 4, 4 + i * h);
+                if (i == 7 || i == 5) e.Graphics.DrawLine(new Pen(Color.Black), 4, 3 + i * h, gameField.Width - 4, 3 + i * h);
+                e.Graphics.DrawLine(new Pen(Color.Black), 4 + i * w, 4, 4 + i * w, gameField.Height - 4);
+                e.Graphics.DrawLine(new Pen(Color.Black), 4, 4 + i * h, gameField.Width - 4, 4 + i * h);
             }
 
             //draw figures
@@ -158,22 +176,18 @@ namespace GeometryChess
 
         private void buttonTriangle_Paint(object sender, PaintEventArgs e)
         {
-            Figure trf = new Triangle(-1, -1, 5, 5, buttonTriangle.Width - 10, buttonTriangle.Height - 10, Color.Black, Color.Black, player);
-            trf.Draw(e.Graphics);
+            (new Triangle(-1, -1, 5, 5, buttonTriangle.Width - 10, buttonTriangle.Height - 10, Color.Black, Color.Black, player)).Draw(e.Graphics);
         }
 
 
         private void buttonRectangle_Paint(object sender, PaintEventArgs e)
         {
-            Figure trf1 = new Rect(-1, -1, 5, 5, buttonRectangle.Width - 10, buttonRectangle.Height - 10, Color.Black, Color.Black, player);
-            trf1.Draw(e.Graphics);
+            (new Rect(-1, -1, 5, 5, buttonRectangle.Width - 10, buttonRectangle.Height - 10, Color.Black, Color.Black, player)).Draw(e.Graphics);
         }
 
         private void buttonCircle_Paint(object sender, PaintEventArgs e)
         {
-            Figure trf2 = new Circle(-1, -1, 5, 5, buttonCircle.Width - 10, buttonCircle.Height - 10, Color.Black, Color.Black, player);
-            trf2.Draw(e.Graphics);
-
+            (new Circle(-1, -1, 5, 5, buttonCircle.Width - 10, buttonCircle.Height - 10, Color.Black, Color.Black, player)).Draw(e.Graphics);
         }
 
         private void Form1_Load(object sender, EventArgs e)

@@ -73,18 +73,15 @@ namespace GeometryChess
 
         }
 
-        public void Draw(Graphics g, int x1, int y1, int x2, int y2)
-        {
-            g.DrawLine(new Pen(Color.Black), x1, y1, x2, y2);
-        }
-
         public int TouchCellX(int X)
         {
-            return (int)((X - 2) / sizeCellX);
+            int touchCellX = ((X / sizeCellX) > 12) ? 11 : (int)(X / sizeCellX);
+            return touchCellX;
         }
         public int TouchCellY(int Y)
         {
-            return (int)((Y - 2) / sizeCellY);
+            int touchCellY = ((Y / sizeCellY) > 12) ? 11 : (int)(Y / sizeCellY);
+            return touchCellY;
         }
 
         public bool TouchCell(int X, int Y, int i, int j)

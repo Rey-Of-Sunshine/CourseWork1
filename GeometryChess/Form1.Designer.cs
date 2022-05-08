@@ -38,7 +38,7 @@
             this.buttonRectangle = new System.Windows.Forms.Button();
             this.buttonCircle = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.dealet = new System.Windows.Forms.Button();
+            this.delete = new System.Windows.Forms.Button();
             this.Start = new System.Windows.Forms.Button();
             this.Stop = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gameField)).BeginInit();
@@ -93,7 +93,7 @@
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Interval = 1;
+            this.timer1.Interval = 200;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // buttonTriangle
@@ -138,16 +138,16 @@
             this.label1.TabIndex = 8;
             this.label1.Text = "Осталось фигур";
             // 
-            // dealet
+            // delete
             // 
-            this.dealet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.dealet.Location = new System.Drawing.Point(690, 320);
-            this.dealet.Name = "dealet";
-            this.dealet.Size = new System.Drawing.Size(125, 47);
-            this.dealet.TabIndex = 9;
-            this.dealet.Text = "убрать";
-            this.dealet.UseVisualStyleBackColor = true;
-            this.dealet.Click += new System.EventHandler(this.dealet_Click);
+            this.delete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.delete.Location = new System.Drawing.Point(690, 320);
+            this.delete.Name = "delete";
+            this.delete.Size = new System.Drawing.Size(125, 47);
+            this.delete.TabIndex = 9;
+            this.delete.Text = "убрать";
+            this.delete.UseVisualStyleBackColor = true;
+            this.delete.Click += new System.EventHandler(this.dealet_Click);
             // 
             // Start
             // 
@@ -178,7 +178,7 @@
             this.ClientSize = new System.Drawing.Size(902, 653);
             this.Controls.Add(this.Stop);
             this.Controls.Add(this.Start);
-            this.Controls.Add(this.dealet);
+            this.Controls.Add(this.delete);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonCircle);
             this.Controls.Add(this.buttonRectangle);
@@ -193,7 +193,6 @@
             this.Name = "GameProcess";
             this.Text = "GameProcess";
             this.Load += new System.EventHandler(this.Form1_Load);
-            
             ((System.ComponentModel.ISupportInitialize)(this.gameField)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -211,7 +210,7 @@
         private System.Windows.Forms.Button buttonRectangle;
         private System.Windows.Forms.Button buttonCircle;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button dealet;
+        private System.Windows.Forms.Button delete;
         private System.Windows.Forms.Button Start;
         private System.Windows.Forms.Button Stop;
     }

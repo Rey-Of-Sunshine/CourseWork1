@@ -123,6 +123,8 @@ namespace GeometryChess
                 y += distY * field.GetSizeCellH();
                 map[indexX + distX, indexY + distY] = map[indexX, indexY];
                 map[indexX, indexY] = null;
+                indexX += distX;
+                indexY += distY;
                 return true;
             }
             else return false;
@@ -155,6 +157,8 @@ namespace GeometryChess
                 y += distY * field.GetSizeCellH();
                 map[indexX + distX, indexY + distY] = map[indexX, indexY];
                 map[indexX, indexY] = null;
+                indexX += distX;
+                indexY += distY;
                 return true;
             }
             else return false;
@@ -215,6 +219,8 @@ namespace GeometryChess
                 y += distY * field.GetSizeCellH();
                 map[indexX + distX, indexY + distY] = map[indexX, indexY];
                 map[indexX, indexY] = null;
+                indexX += distX;
+                indexY += distY;
                 return true;
             }
             else return false;
@@ -251,6 +257,8 @@ namespace GeometryChess
                 y += distY * field.GetSizeCellH();
                 map[indexX + distX, indexY + distY] = map[indexX, indexY];
                 map[indexX, indexY] = null;
+                indexX += distX;
+                indexY += distY;
                 return true;
             }
             else return false;
@@ -323,6 +331,8 @@ namespace GeometryChess
                 y += distY * field.GetSizeCellH();
                 map[indexX + distX, indexY + distY] = map[indexX, indexY];
                 map[indexX, indexY] = null;
+                indexX += distX;
+                indexY += distY;
                 return true;
             }
             else return false;
@@ -372,6 +382,8 @@ namespace GeometryChess
                 y += distY * field.GetSizeCellH();
                 map[indexX + distX, indexY + distY] = map[indexX, indexY];
                 map[indexX, indexY] = null;
+                indexX += distX;
+                indexY += distY;
                 return true;
             }
             else return false;
