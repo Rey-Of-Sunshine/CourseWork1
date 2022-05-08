@@ -75,11 +75,13 @@ namespace GeometryChess
 
         public int TouchCellX(int X)
         {
+            X -= 2;
             int touchCellX = ((X / sizeCellX) > 12) ? 11 : (int)(X / sizeCellX);
             return touchCellX;
         }
         public int TouchCellY(int Y)
         {
+            Y -= 2;
             int touchCellY = ((Y / sizeCellY) > 12) ? 11 : (int)(Y / sizeCellY);
             return touchCellY;
         }

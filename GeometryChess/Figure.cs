@@ -98,70 +98,73 @@ namespace GeometryChess
         {
             int side = rnd.Next(3);
             int distX=0, distY=0;
-
-            switch (side)
+            for (int i=0; i<3; i++)
             {
-                case 0: //вперёд
-                    distX = 0;
-                    distY = -distanceStap;
-                    //y = (map[indexX, indexY - distance] == null) ? -distance * field.GetSizeCellH() : +0;
-                    //dy = -distance;
-                    break;
-                case 1: //назад влево
-                    distX = -distanceStap;
-                    distY = distanceStap;
-                    break;
-                case 2: // назад вправо
-                    distX = distanceStap;
-                    distY = distanceStap;
-                    break;
+                    switch (side)
+                {
+                    case 0: //вперёд
+                        distX = 0;
+                        distY = -distanceStap;
+                        break;
+                    case 1: //назад влево
+                        distX = -distanceStap;
+                        distY = distanceStap;
+                        break;
+                    case 2: // назад вправо
+                        distX = distanceStap;
+                        distY = distanceStap;
+                        break;
+                }
+                if (ChackIndex(map, distX, distY))
+                {
+                    x += distX * field.GetSizeCellH();
+                    y += distY * field.GetSizeCellH();
+                    map[indexX + distX, indexY + distY] = map[indexX, indexY];
+                    map[indexX, indexY] = null;
+                    indexX += distX;
+                    indexY += distY;
+                    return true;
+                }
+                else side = rnd.Next(3);
             }
-
-            if (ChackIndex(map, distX, distY))
-            {
-                x += distX * field.GetSizeCellH();
-                y += distY * field.GetSizeCellH();
-                map[indexX + distX, indexY + distY] = map[indexX, indexY];
-                map[indexX, indexY] = null;
-                indexX += distX;
-                indexY += distY;
-                return true;
-            }
-            else return false;
+            return false;
         }
 
         protected override bool EatDirection(Figure[,] map, Random rnd, GameField field)
         {
             int side = rnd.Next(3);
-            int distX=0, distY=0;
-
-            switch (side)
+            int distX = 0, distY = 0;
+            for (int i = 0; i < 3; i++)
             {
-                case 0: //назад
-                    distX = 0;
-                    distY = distanceHit;
-                    break;
-                case 1: // влево
-                    distX = -distanceHit;
-                    distY = 0;
-                    break;
-                case 2: // вправо
-                    distX = distanceHit;
-                    distY = 0;
-                    break;
-            }
+                switch (side)
+                {
+                    case 0: //назад
+                        distX = 0;
+                        distY = distanceHit;
+                        break;
+                    case 1: // влево
+                        distX = -distanceHit;
+                        distY = 0;
+                        break;
+                    case 2: // вправо
+                        distX = distanceHit;
+                        distY = 0;
+                        break;
+                }
 
-            if (ChackIndexEat(map, distX, distY))
-            {
-                x += distX * field.GetSizeCellH();
-                y += distY * field.GetSizeCellH();
-                map[indexX + distX, indexY + distY] = map[indexX, indexY];
-                map[indexX, indexY] = null;
-                indexX += distX;
-                indexY += distY;
-                return true;
+                if (ChackIndexEat(map, distX, distY))
+                {
+                    x += distX * field.GetSizeCellH();
+                    y += distY * field.GetSizeCellH();
+                    map[indexX + distX, indexY + distY] = map[indexX, indexY];
+                    map[indexX, indexY] = null;
+                    indexX += distX;
+                    indexY += distY;
+                    return true;
+                }
+                else side = rnd.Next(3);
             }
-            else return false;
+             return false;
         }
     }
 
@@ -192,38 +195,41 @@ namespace GeometryChess
         {
             int side = rnd.Next(4);
             int distX = 0, distY = 0;
-
-            switch (side)
+            for (int i = 0; i < 4; i++)
             {
-                case 0: //вперёд влево
-                    distX = -distanceStap;
-                    distY = -distanceStap;
-                    break;
-                case 1: //вперёд вправо
-                    distX = distanceStap;
-                    distY = -distanceStap;
-                    break;
-                case 2: //назад вправо
-                    distX = distanceStap;
-                    distY = distanceStap;
-                    break;
-                case 3: //назад влево
-                    distX = -distanceStap;
-                    distY = distanceStap;
-                    break;
-            }
+                switch (side)
+                {
+                    case 0: //вперёд влево
+                        distX = -distanceStap;
+                        distY = -distanceStap;
+                        break;
+                    case 1: //вперёд вправо
+                        distX = distanceStap;
+                        distY = -distanceStap;
+                        break;
+                    case 2: //назад вправо
+                        distX = distanceStap;
+                        distY = distanceStap;
+                        break;
+                    case 3: //назад влево
+                        distX = -distanceStap;
+                        distY = distanceStap;
+                        break;
+                }
 
-            if (ChackIndex(map, distX, distY))
-            {
-                x += distX * field.GetSizeCellH();
-                y += distY * field.GetSizeCellH();
-                map[indexX + distX, indexY + distY] = map[indexX, indexY];
-                map[indexX, indexY] = null;
-                indexX += distX;
-                indexY += distY;
-                return true;
+                if (ChackIndex(map, distX, distY))
+                {
+                    x += distX * field.GetSizeCellH();
+                    y += distY * field.GetSizeCellH();
+                    map[indexX + distX, indexY + distY] = map[indexX, indexY];
+                    map[indexX, indexY] = null;
+                    indexX += distX;
+                    indexY += distY;
+                    return true;
+                }
+                side = rnd.Next(4);
             }
-            else return false;
+            return false;
         }
 
         protected override bool EatDirection(Figure[,] map, Random rnd, GameField field)
@@ -231,37 +237,41 @@ namespace GeometryChess
             int side = rnd.Next(4);
             int distX = 0, distY = 0;
 
-            switch (side)
+            for (int i = 0; i < 4; i++)
             {
-                case 0: //вперёд
-                    distX = 0;
-                    distY = -distanceHit;
-                    break;
-                case 1: //вправо
-                    distX = distanceHit;
-                    distY = 0;
-                    break;
-                case 2: //влево
-                    distX = distanceHit;
-                    distY = 0;
-                    break;
-                case 3: //назад
-                    distX = 0;
-                    distY = distanceHit;
-                    break;
-            }
+                switch (side)
+                {
+                    case 0: //вперёд
+                        distX = 0;
+                        distY = -distanceHit;
+                        break;
+                    case 1: //вправо
+                        distX = distanceHit;
+                        distY = 0;
+                        break;
+                    case 2: //влево
+                        distX = distanceHit;
+                        distY = 0;
+                        break;
+                    case 3: //назад
+                        distX = 0;
+                        distY = distanceHit;
+                        break;
+                }
 
-            if (ChackIndexEat(map, distX, distY))
-            {
-                x += distX * field.GetSizeCellH();
-                y += distY * field.GetSizeCellH();
-                map[indexX + distX, indexY + distY] = map[indexX, indexY];
-                map[indexX, indexY] = null;
-                indexX += distX;
-                indexY += distY;
-                return true;
+                if (ChackIndexEat(map, distX, distY))
+                {
+                    x += distX * field.GetSizeCellH();
+                    y += distY * field.GetSizeCellH();
+                    map[indexX + distX, indexY + distY] = map[indexX, indexY];
+                    map[indexX, indexY] = null;
+                    indexX += distX;
+                    indexY += distY;
+                    return true;
+                }
+                side = rnd.Next(4);
             }
-            else return false;
+            return false;
         }
     }
 
@@ -292,50 +302,54 @@ namespace GeometryChess
             int side = rnd.Next(8);
             int distX = 0, distY = 0;
 
-            switch (side)
+            for (int i = 0; i < 8; i++)
             {
-                case 0://вперёд влево
-                    distX = -distanceStap;
-                    distY = -distanceStap;
-                    break;
-                case 1: //вперёд
-                    distY = -distanceStap;
-                    break;
-                case 2://вперёд вправо
-                    distX = distanceStap;
-                    distY = -distanceStap;
-                    break;
-                case 3: //вправо
-                    distX = distanceStap;
-                    break;
-                case 4://назад вправо
-                    distX = distanceStap;
-                    distY = distanceStap;
-                    break;
-                case 5: //назад
-                    distY = distanceStap;
-                    break;
-                case 6://назад влево
-                    distX = -distanceStap;
-                    distY = distanceStap;
-                    break;
-                case 7:  //влево
-                    distX = -distanceStap;
-                    break;
-            }
+                switch (side)
+                {
+                    case 0://вперёд влево
+                        distX = -distanceStap;
+                        distY = -distanceStap;
+                        break;
+                    case 1: //вперёд
+                        distY = -distanceStap;
+                        break;
+                    case 2://вперёд вправо
+                        distX = distanceStap;
+                        distY = -distanceStap;
+                        break;
+                    case 3: //вправо
+                        distX = distanceStap;
+                        break;
+                    case 4://назад вправо
+                        distX = distanceStap;
+                        distY = distanceStap;
+                        break;
+                    case 5: //назад
+                        distY = distanceStap;
+                        break;
+                    case 6://назад влево
+                        distX = -distanceStap;
+                        distY = distanceStap;
+                        break;
+                    case 7:  //влево
+                        distX = -distanceStap;
+                        break;
+                }
 
 
-            if (ChackIndex(map, distX, distY))
-            {
-                x += distX * field.GetSizeCellH();
-                y += distY * field.GetSizeCellH();
-                map[indexX + distX, indexY + distY] = map[indexX, indexY];
-                map[indexX, indexY] = null;
-                indexX += distX;
-                indexY += distY;
-                return true;
+                if (ChackIndex(map, distX, distY))
+                {
+                    x += distX * field.GetSizeCellH();
+                    y += distY * field.GetSizeCellH();
+                    map[indexX + distX, indexY + distY] = map[indexX, indexY];
+                    map[indexX, indexY] = null;
+                    indexX += distX;
+                    indexY += distY;
+                    return true;
+                }
+                side = rnd.Next(8);
             }
-            else return false;
+            return false;
         }
 
         protected override bool EatDirection(Figure[,] map, Random rnd, GameField field)
@@ -343,50 +357,54 @@ namespace GeometryChess
             int side = rnd.Next(8);
             int distX = 0, distY = 0;
 
-            switch (side)
+            for (int i = 0; i < 8; i++)
             {
-                case 0://вперёд влево
-                    distX = -distanceHit;
-                    distY = -distanceHit;
-                    break;
-                case 1: //вперёд
-                    distY = -distanceHit;
-                    break;
-                case 2://вперёд вправо
-                    distX = distanceHit;
-                    distY = -distanceHit;
-                    break;
-                case 3: //вправо
-                    distX = distanceHit;
-                    break;
-                case 4://назад вправо
-                    distX = distanceHit;
-                    distY = distanceHit;
-                    break;
-                case 5: //назад
-                    distY = distanceHit;
-                    break;
-                case 6://назад влево
-                    distX = -distanceHit;
-                    distY = distanceHit;
-                    break;
-                case 7:  //влево
-                    distX = -distanceHit;
-                    break;
-            }
+                switch (side)
+                {
+                    case 0://вперёд влево
+                        distX = -distanceHit;
+                        distY = -distanceHit;
+                        break;
+                    case 1: //вперёд
+                        distY = -distanceHit;
+                        break;
+                    case 2://вперёд вправо
+                        distX = distanceHit;
+                        distY = -distanceHit;
+                        break;
+                    case 3: //вправо
+                        distX = distanceHit;
+                        break;
+                    case 4://назад вправо
+                        distX = distanceHit;
+                        distY = distanceHit;
+                        break;
+                    case 5: //назад
+                        distY = distanceHit;
+                        break;
+                    case 6://назад влево
+                        distX = -distanceHit;
+                        distY = distanceHit;
+                        break;
+                    case 7:  //влево
+                        distX = -distanceHit;
+                        break;
+                }
 
 
-            if (ChackIndexEat(map, distX, distY))
-            {
-                x += distX * field.GetSizeCellH();
-                y += distY * field.GetSizeCellH();
-                map[indexX + distX, indexY + distY] = map[indexX, indexY];
-                map[indexX, indexY] = null;
-                indexX += distX;
-                indexY += distY;
-                return true;
+                if (ChackIndexEat(map, distX, distY))
+                {
+                    x += distX * field.GetSizeCellH();
+                    y += distY * field.GetSizeCellH();
+                    map[indexX + distX, indexY + distY] = map[indexX, indexY];
+                    map[indexX, indexY] = null;
+                    indexX += distX;
+                    indexY += distY;
+                    return true;
+                }
+                side = rnd.Next(8);
             }
-            else return false;
+            return false;
         }
     }
 }

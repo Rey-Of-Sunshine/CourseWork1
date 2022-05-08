@@ -18,11 +18,11 @@ namespace GeometryChess
         {
             InitializeComponent();
 
-            gameField.Width = 440;
-            gameField.Height = 440;
-
-            field = new GameField(gameField.Width, gameField.Height);
-            field.Placement(figures);
+            gameField.Width = 440;                                            ////
+            gameField.Height = 440;                                           ////
+                                                                              ////
+            field = new GameField(gameField.Width, gameField.Height);         ////
+            field.Placement(figures);                                         ////
         }
 
         bool clicStart = false;
@@ -36,16 +36,16 @@ namespace GeometryChess
               { SelectedFigure.Circle , new Circle() }
         };
 
-        bool player = true;
+        bool player = true;                                                   ////
         int touchX, touchY;
         int stapPl = 0, stapCm = 0;
-        int coins = 150;
-        int costT = 13, costR = 13, costC = 12;
+        int coins = 150;                                                      ////
+        int costT = 13, costR = 13, costC = 12;                               ////
 
 
         Random rnd = new Random();
-        Figure[,] figures = new Figure[12, 12];
-        GameField field;
+        Figure[,] figures = new Figure[12, 12];                              ////
+        GameField field;                                                     ////
 
 
         private void buttonTriangle_Click(object sender, EventArgs e)
@@ -83,69 +83,69 @@ namespace GeometryChess
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
-            touchX = field.TouchCellX(e.X);
-            touchY = field.TouchCellY(e.Y);
-            int delta = 6;
-            int h = (int)field.GetSizeCellH() - delta;
-            int w = (int)field.GetSizeCellW() - delta;
-            float x = 4 + delta / 2 + touchX * field.GetSizeCellW();
-            float y = 4 + delta / 2 + touchY * field.GetSizeCellH();
-
-            //create and delete object //в одну ячейку не должно помещаться более одной фигуры
-            if (field.TouchCell(e.X, e.Y, touchX, touchY) && touchY >= 7)
-            {
-
-                if (selectedFigure == SelectedFigure.Delete)
-                {
-                    if (figures[touchX, touchY] is Triangle) coins += costT;
-                    if (figures[touchX, touchY] is Rect) coins += costR;
-                    if (figures[touchX, touchY] is Circle) coins += costC;
-                    figures[touchX, touchY] = null;
-                }
-                else if (CheckPlacement(touchX, touchY))
-                {
-                    figures[touchX, touchY] = figs[selectedFigure].Clone(touchX, touchY, x, y, w, h, Color.Blue, Color.Black, true);
-                    coins -= costT;
-                }
+            touchX = field.TouchCellX(e.X);                                                                                             ////
+            touchY = field.TouchCellY(e.Y);                                                                                             ////
+            int delta = 6;                                                                                                              ////
+            int h = (int)field.GetSizeCellH() - delta;                                                                                  ////
+            int w = (int)field.GetSizeCellW() - delta;                                                                                  ////
+            float x = 4 + delta / 2 + touchX * field.GetSizeCellW();                                                                    ////
+            float y = 4 + delta / 2 + touchY * field.GetSizeCellH();                                                                    ////
+                                                                                                                                        ////
+            //create and delete object //в одну ячейку не должно помещаться более одной фигуры                                          ////
+            if (field.TouchCell(e.X, e.Y, touchX, touchY) && touchY >= 7)                                                               ////
+            {                                                                                                                           ////
+                                                                                                                                        ////
+                if (selectedFigure == SelectedFigure.Delete)                                                                            ////
+                {                                                                                                                       ////
+                    if (figures[touchX, touchY] is Triangle) coins += costT;                                                            ////
+                    if (figures[touchX, touchY] is Rect) coins += costR;                                                                ////
+                    if (figures[touchX, touchY] is Circle) coins += costC;                                                              ////
+                    figures[touchX, touchY] = null;                                                                                     ////
+                }                                                                                                                       ////
+                else if (CheckPlacement(touchX, touchY))                                                                                ////
+                {                                                                                                                       ////
+                    figures[touchX, touchY] = figs[selectedFigure].Clone(touchX, touchY, x, y, w, h, Color.Blue, Color.Black, true);    ////
+                    coins -= costT;                                                                                                     ////
+                }                                                                                                                       ////
             }
             quantitiTtiangle.Text = Convert.ToString(coins / costT);
             quantitiRectangle.Text = Convert.ToString(coins / costR);
             quantitiCircle.Text = Convert.ToString(coins / costC);
         }
 
-        private bool CheckPlacement(int x, int y) => coins >= 12 && figures[x, y] == null;
+        private bool CheckPlacement(int x, int y) => coins >= 12 && figures[x, y] == null;                                               ////
 
-        private bool CheckFigurePl(int a) => stapPl == stapCm && stapPl % 3 == a;
-        private bool CheckFigureCm(int a) => stapPl > stapCm && stapCm % 3 == a;
-
-        private void doMovePl (Figure f)
-        {
-            f.Move(figures, rnd, field);
-            stapPl++;
-        }
-
-        private void doMoveCm(Figure f)
-        {
-            f.Move(figures, rnd, field);
-            stapCm++;
+        private bool CheckFigurePl(int a) => stapPl == stapCm && stapPl % 3 == a;                         ////
+        private bool CheckFigureCm(int a) => stapPl > stapCm && stapCm % 3 == a;                          ////
+                                                                                                          ////
+        private void doMovePl (Figure f)                                                                  ////
+        {                                                                                                 ////
+            f.Move(figures, rnd, field);                                                                  ////
+            stapPl++;                                                                                     ////
+        }                                                                                                 ////
+                                                                                                          ////
+        private void doMoveCm(Figure f)                                                                   ////
+        {                                                                                                 ////
+            f.Move(figures, rnd, field);                                                                  ////
+            stapCm++;                                                                                     ////
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (clicStart)
             {
-                for (int i = 0; i < 12; i++)
-                {
-                    for (int j = 0; j < 12; j++)
-                    {
-                        if (figures[i, j] is Triangle && CheckFigurePl(0)) doMovePl(figures[i, j]);
-                        if (figures[i, j] is Triangle && CheckFigureCm(0)) doMoveCm(figures[i, j]);
-                        if (figures[i, j] is Rect && CheckFigurePl(1)) doMovePl(figures[i, j]);
-                        if (figures[i, j] is Rect && CheckFigureCm(1)) doMoveCm(figures[i, j]);
-                        if (figures[i, j] is Circle && CheckFigurePl(2)) doMovePl(figures[i, j]);
-                        if (figures[i, j] is Circle && CheckFigureCm(2)) doMoveCm(figures[i, j]);
-                        //figures[i, j]?.Move(figures, rnd, field);
-                    }
+                for (int i = 0; i < 12; i++)                                                               ////
+                {                                                                                          ////
+                    for (int j = 0; j < 12; j++)                                                           ////
+                    {                                                                                      ////
+                        if (figures[i, j] is Triangle && CheckFigurePl(0)) doMovePl(figures[i, j]);        ////
+                        if (figures[i, j] is Triangle && CheckFigureCm(0)) doMoveCm(figures[i, j]);        ////
+                        if (figures[i, j] is Rect && CheckFigurePl(1)) doMovePl(figures[i, j]);            ////
+                        if (figures[i, j] is Rect && CheckFigureCm(1)) doMoveCm(figures[i, j]);            ////
+                        if (figures[i, j] is Circle && CheckFigurePl(2)) doMovePl(figures[i, j]);          ////
+                        if (figures[i, j] is Circle && CheckFigureCm(2)) doMoveCm(figures[i, j]);          ////
+                        //figures[i, j]?.Move(figures, rnd, field);                                        ////
+                    }                                                                                      ////
                 }
             }
             Refresh();
@@ -165,12 +165,12 @@ namespace GeometryChess
             }
 
             //draw figures
-            for (int i = 0; i < 12; i++)
-            {
-                for (int j = 0; j < 12; j++)
-                {
-                    if (figures[i, j] != null) figures[i, j].Draw(e.Graphics);
-                }
+            for (int i = 0; i < 12; i++)                                                      ////
+            {                                                                                 ////
+                for (int j = 0; j < 12; j++)                                                  ////
+                {                                                                             ////
+                    if (figures[i, j] != null) figures[i, j].Draw(e.Graphics);                ////
+                }                                                                             ////
             }
         }
 
