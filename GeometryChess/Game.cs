@@ -18,19 +18,15 @@ namespace GeometryChess
         Figure[,] figures = new Figure[12, 12];
         Controler player, fate;
         GameField field;
-        SelectedFigure selectedFigure;
-        Dictionary<SelectedFigure, Figure> figs;
 
 
         public Game() { }
         public Game(GameField field, SelectedFigure selectedFigure, Dictionary<SelectedFigure, Figure> figs)
         {
             player = new Controler(figures, true, field, selectedFigure, figs);
-            fate = new Controler(figures, false, rnd.Next(12), rnd.Next(5), field, selectedFigure, figs);
+            fate = new Controler(figures, false, field, selectedFigure, figs);
 
             this.field = field;
-            this.selectedFigure = selectedFigure;
-            this.figs = figs;
         }
 
         public void DrawField(Graphics g)
@@ -39,9 +35,25 @@ namespace GeometryChess
             field.DrawFigures(g, figures);
         }
 
-        public void Queue(int a)
+        public void Placement(int X, int Y)
         {
-            switch (a)
+            player.Placement(X, Y);
+        }
+
+        public void Placement()
+        {
+            fate.Placement(rnd);
+        }
+
+        public int GetQuantiti(Figure f)
+        {
+            return player.coinsPl/f.cost;
+        }
+        
+
+        public void Queue()
+        {
+            switch (stap % 6)
             {
                 case 0:
                     for (int i = 0; i < 12; i++)

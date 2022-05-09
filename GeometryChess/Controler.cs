@@ -12,8 +12,9 @@ namespace GeometryChess
         //расстановка фигур
 
         int touchX, touchY, h, w;
+        public int coinsPl { get; private set; } = 150;
+        int coinsCm = 150;
         float x, y;
-        int costT = 13, costR = 13, costC = 12;
         int delta = 6;
         bool plaer;
 
@@ -23,21 +24,7 @@ namespace GeometryChess
         Dictionary<SelectedFigure, Figure> figs;
 
         public Controler() { }
-        public Controler(Figure[,] figures, bool plaer, int touchX, int touchY, GameField field, SelectedFigure selectedFigure, Dictionary<SelectedFigure, Figure> figs)
-        {
-            this.figures = figures;
-            this.plaer = plaer;
-            this.touchX = touchX;
-            this.touchY = touchY;
-            this.field = field;
-            this.selectedFigure = selectedFigure;
-            this.figs = figs;
 
-            h = (int)field.GetSizeCellH() - delta;
-            w = (int)field.GetSizeCellW() - delta;
-            x = 4 + delta / 2 + touchX * field.GetSizeCellW();
-            y = 4 + delta / 2 + touchY * field.GetSizeCellH();
-        }
         public Controler(Figure[,] figures, bool plaer, GameField field, SelectedFigure selectedFigure, Dictionary<SelectedFigure, Figure> figs)
         {
             this.figures = figures;
@@ -52,49 +39,52 @@ namespace GeometryChess
             y = 4 + delta / 2 + touchY * field.GetSizeCellH();
         }
 
-        private bool CheckPlacement(int x, int y, int coins) => coins >= 12 && figures[x, y] == null;
+        private bool CheckPlacement(int x, int y) => coinsPl >= 12 && figures[x, y] == null;
         internal void Placement(int X, int Y)
         {
-            int coins = 150;
+            int touchX = field.TouchCellX(X);
+            int touchY = field.TouchCellY(Y);
+
 
             if (field.TouchCell(X, Y) && touchY >= 7)
             {
                 if (selectedFigure == SelectedFigure.Delete)
                 {
-                    if (figures[touchX, touchY] is Triangle) coins += costT;
-                    if (figures[touchX, touchY] is Rect) coins += costR;
-                    if (figures[touchX, touchY] is Circle) coins += costC;
+                    coinsPl = (figures[touchX, touchY] != null) ? +figures[touchX, touchY].cost : 0;
                     figures[touchX, touchY] = null;
                 }
-                else if (CheckPlacement(touchX, touchY, coins))
+                else if (CheckPlacement(touchX, touchY))
                 {
                     figures[touchX, touchY] = figs[selectedFigure].Clone(touchX, touchY, x, y, w, h, Color.Blue, Color.Black, true);
-                    coins -= costT;
+                    coinsPl -= figures[touchX, touchY].cost;
                 }
             }
         }
 
         internal void Placement(Random rnd)
         {
-            int coins = 150;
 
-            while (coins >= 12)
+            while (coinsCm >= 12)
             {
+                int touchX = rnd.Next(12), touchY = rnd.Next(5);
+                float x = 4 + delta / 2 + touchX * field.GetSizeCellW();
+                float y = 4 + delta / 2 + touchY * field.GetSizeCellH();
+
                 if (figures[touchX, touchY] == null)
                 {
                     switch (rnd.Next(3))
                     {
                         case 0:
                             figures[touchX, touchY] = new Triangle(touchX, touchY, x, y, w, h, Color.Green, Color.Black, plaer);
-                            coins -= costT;
+                            coinsCm -= figures[touchX, touchY].cost;
                             break;
                         case 1:
                             figures[touchX, touchY] = new Rect(touchX, touchY, x, y, w, h, Color.Green, Color.Black, plaer);
-                            coins -= costR;
+                            coinsCm -= figures[touchX, touchY].cost;
                             break;
                         case 2:
                             figures[touchX, touchY] = new Circle(touchX, touchY, x, y, w, h, Color.Green, Color.Black, plaer);
-                            coins -= costC;
+                            coinsCm -= figures[touchX, touchY].cost;
                             break;
                     }
                 }

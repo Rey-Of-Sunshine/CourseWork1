@@ -8,6 +8,7 @@ namespace GeometryChess
         protected float x, y;
         protected int w, h;
         public bool isPlayer { get; protected set; }
+        public int cost { get; protected set; }
         protected int distanceStap = 0, distanceHit = 0;
         protected int indexX, indexY;
         protected SolidBrush brush;
@@ -56,12 +57,13 @@ namespace GeometryChess
     {
         PointF point1, point2, point3;
 
-        public Triangle() { }
+        public Triangle() { cost = 13; }
 
         public Triangle(int indexX, int indexY, float x, float y, int w, int h, Color color, Color colorP, bool isPlayer) : base(indexX, indexY, x, y, w, h, color, colorP, isPlayer)
         {
             distanceStap = 3;
             distanceHit = 2;
+            cost = 13;
         }
 
         internal override void Draw(Graphics g)
@@ -164,12 +166,13 @@ namespace GeometryChess
 
     class Rect : Figure
     {
-        public Rect() { }
+        public Rect() { cost = 13; }
 
         public Rect(int indexX, int indexY, float x, float y, int w, int h, Color color, Color colorP, bool isPlayer) : base(indexX, indexY, x, y, w, h, color, colorP, isPlayer)
         {
             distanceStap = 1;
             distanceHit = 3;
+            cost = 13;
         }
 
         internal override void Draw(Graphics g)
@@ -269,12 +272,13 @@ namespace GeometryChess
 
     class Circle : Figure
     {
-        public Circle() { }
+        public Circle() { cost = 12; }
 
         public Circle(int indexX, int indexY, float x, float y, int w, int h, Color color, Color colorP, bool isPlayer) : base(indexX, indexY, x, y, w, h, color, colorP, isPlayer)
         {
             distanceStap = 2;
             distanceHit = 1;
+            cost = 12;
         }
 
         internal override void Draw(Graphics g)

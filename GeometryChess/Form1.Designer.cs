@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.gameField = new System.Windows.Forms.PictureBox();
-            this.quantitiTtiangle = new System.Windows.Forms.TextBox();
+            this.quantitiTriangle = new System.Windows.Forms.TextBox();
             this.quantitiRectangle = new System.Windows.Forms.TextBox();
             this.quantitiCircle = new System.Windows.Forms.TextBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
@@ -54,17 +54,17 @@
             this.gameField.Paint += new System.Windows.Forms.PaintEventHandler(this.gameField_Paint);
             this.gameField.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
             // 
-            // quantitiTtiangle
+            // quantitiTriangle
             // 
-            this.quantitiTtiangle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.quantitiTtiangle.Location = new System.Drawing.Point(787, 72);
-            this.quantitiTtiangle.Name = "quantitiTtiangle";
-            this.quantitiTtiangle.ReadOnly = true;
-            this.quantitiTtiangle.ShortcutsEnabled = false;
-            this.quantitiTtiangle.Size = new System.Drawing.Size(40, 22);
-            this.quantitiTtiangle.TabIndex = 1;
-            this.quantitiTtiangle.TabStop = false;
-            this.quantitiTtiangle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.quantitiTriangle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.quantitiTriangle.Location = new System.Drawing.Point(787, 72);
+            this.quantitiTriangle.Name = "quantitiTriangle";
+            this.quantitiTriangle.ReadOnly = true;
+            this.quantitiTriangle.ShortcutsEnabled = false;
+            this.quantitiTriangle.Size = new System.Drawing.Size(40, 22);
+            this.quantitiTriangle.TabIndex = 1;
+            this.quantitiTriangle.TabStop = false;
+            this.quantitiTriangle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // quantitiRectangle
             // 
@@ -185,7 +185,7 @@
             this.Controls.Add(this.buttonTriangle);
             this.Controls.Add(this.quantitiCircle);
             this.Controls.Add(this.quantitiRectangle);
-            this.Controls.Add(this.quantitiTtiangle);
+            this.Controls.Add(this.quantitiTriangle);
             this.Controls.Add(this.gameField);
             this.DoubleBuffered = true;
             this.MaximumSize = new System.Drawing.Size(920, 700);
@@ -202,7 +202,7 @@
         #endregion
 
         private System.Windows.Forms.PictureBox gameField;
-        private System.Windows.Forms.TextBox quantitiTtiangle;
+        private System.Windows.Forms.TextBox quantitiTriangle;
         private System.Windows.Forms.TextBox quantitiRectangle;
         private System.Windows.Forms.TextBox quantitiCircle;
         private System.Windows.Forms.Timer timer1;

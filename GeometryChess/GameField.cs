@@ -21,47 +21,6 @@ namespace GeometryChess
             sizeCellY = (this.height) / 12;
         }
 
-
-        internal void Placement(Figure[,] figures)
-        {
-            int coins = 150;
-            bool plaer = false;
-            int delta = 6;
-            int h = (int)GetSizeCellH() - delta;
-            int w = (int)GetSizeCellW() - delta;
-            int costT = 13, costR = 13, costC = 12;
-
-            Random comPlan = new Random();
-
-            while (coins >= 12)
-            {
-                int touchX = comPlan.Next(12);
-                int touchY = comPlan.Next(5);
-                float x = 4 + delta / 2 + touchX * GetSizeCellW();
-                float y = 4 + delta / 2 + touchY * GetSizeCellH();
-
-                if (figures[touchX, touchY] == null)
-                {
-                    switch (comPlan.Next(3))
-                    {
-                        case 0:
-                            figures[touchX, touchY] = new Triangle(touchX, touchY, x, y, w, h, Color.Green, Color.Black, plaer);
-                            coins -= costT;
-                            break;
-                        case 1:
-                            figures[touchX, touchY] = new Rect(touchX, touchY, x, y, w, h, Color.Green, Color.Black, plaer);
-                            coins -= costR;
-                            break;
-                        case 2:
-                            figures[touchX, touchY] = new Circle(touchX, touchY, x, y, w, h, Color.Green, Color.Black, plaer);
-                            coins -= costC;
-                            break;
-                    }
-                }
-            }
-
-        }
-
         public void DrawGrid(Graphics g)
         {
             for (int i = 0; i < 15; i++)
