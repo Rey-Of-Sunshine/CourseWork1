@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GeometryChess
@@ -18,11 +13,12 @@ namespace GeometryChess
         {
             InitializeComponent();
 
-            gameField.Width = 440;                                            ////
-            gameField.Height = 440;                                           ////
-                                                                              ////
-            field = new GameField(gameField.Width, gameField.Height);         ////
-            field.Placement(figures);                                         ////
+            gameField.Width = 440;                                           
+            gameField.Height = 440;                                          
+                                                                             
+            field = new GameField(gameField.Width, gameField.Height);
+            game = new Game(field, selectedFigure, figs);
+            field.Placement(figures);                                        
         }
 
         bool clicStart = false;
@@ -36,16 +32,16 @@ namespace GeometryChess
               { SelectedFigure.Circle , new Circle() }
         };
 
-        bool player = true;                                                   ////
+        bool player = true;                                                  
         int touchX, touchY;
-        int stapPl = 0, stapCm = 0;
-        int coins = 150;                                                      ////
-        int costT = 13, costR = 13, costC = 12;                               ////
+        int stap = 0;
+        int coins = 150;                                                     
+        int costT = 13, costR = 13, costC = 12;
 
-
+        Game game;
         Random rnd = new Random();
-        Figure[,] figures = new Figure[12, 12];                              ////
-        GameField field;                                                     ////
+        Figure[,] figures = new Figure[12, 12];                              
+        GameField field;                                                     
 
 
         private void buttonTriangle_Click(object sender, EventArgs e)
@@ -92,7 +88,7 @@ namespace GeometryChess
             float y = 4 + delta / 2 + touchY * field.GetSizeCellH();                                                                    ////
                                                                                                                                         ////
             //create and delete object //в одну ячейку не должно помещаться более одной фигуры                                          ////
-            if (field.TouchCell(e.X, e.Y, touchX, touchY) && touchY >= 7)                                                               ////
+            if (field.TouchCell(e.X, e.Y) && touchY >= 7)                                                                               ////
             {                                                                                                                           ////
                                                                                                                                         ////
                 if (selectedFigure == SelectedFigure.Delete)                                                                            ////
@@ -113,64 +109,98 @@ namespace GeometryChess
             quantitiCircle.Text = Convert.ToString(coins / costC);
         }
 
-        private bool CheckPlacement(int x, int y) => coins >= 12 && figures[x, y] == null;                                               ////
+        private bool CheckPlacement(int x, int y) => coins >= 12 && figures[x, y] == null;
 
-        private bool CheckFigurePl(int a) => stapPl == stapCm && stapPl % 3 == a;                         ////
-        private bool CheckFigureCm(int a) => stapPl > stapCm && stapCm % 3 == a;                          ////
-                                                                                                          ////
-        private void doMovePl (Figure f)                                                                  ////
-        {                                                                                                 ////
-            f.Move(figures, rnd, field);                                                                  ////
-            stapPl++;                                                                                     ////
-        }                                                                                                 ////
-                                                                                                          ////
-        private void doMoveCm(Figure f)                                                                   ////
-        {                                                                                                 ////
-            f.Move(figures, rnd, field);                                                                  ////
-            stapCm++;                                                                                     ////
+
+        public void Queue(int a)
+        {
+            switch (a)
+            {
+                case 0:
+                    for (int i = 0; i < 12; i++)
+                    {
+                        for (int j = 0; j < 12; j++)
+                        {
+                            if (figures[i, j] is Triangle && figures[i, j].isPlayer) figures[i, j].Move(figures, rnd, field);
+                        }
+                    }
+                    stap++;
+                    break;
+                case 1:
+
+                    for (int i = 0; i < 12; i++)
+                    {
+                        for (int j = 0; j < 12; j++)
+                        {
+                            if (figures[i, j] is Triangle && !figures[i, j].isPlayer) figures[i, j].Move(figures, rnd, field);
+                        }
+                    }
+                    stap++;
+                    break;
+                case 2:
+                    for (int i = 0; i < 12; i++)
+                    {
+                        for (int j = 0; j < 12; j++)
+                        {
+                            if (figures[i, j] is Rect && figures[i, j].isPlayer) figures[i, j].Move(figures, rnd, field);
+                        }
+                    }
+                    stap++;
+                    break;
+                case 3:
+                    for (int i = 0; i < 12; i++)
+                    {
+                        for (int j = 0; j < 12; j++)
+                        {
+                            if (figures[i, j] is Rect && !figures[i, j].isPlayer) figures[i, j].Move(figures, rnd, field);
+                        }
+                    }
+                    stap++;
+                    break;
+                case 4:
+                    for (int i = 0; i < 12; i++)
+                    {
+                        for (int j = 0; j < 12; j++)
+                        {
+                            if (figures[i, j] is Circle && figures[i, j].isPlayer) figures[i, j].Move(figures, rnd, field);
+                        }
+                    }
+                    stap++;
+                    break;
+                case 5:
+                    for (int i = 0; i < 12; i++)
+                    {
+                        for (int j = 0; j < 12; j++)
+                        {
+                            if (figures[i, j] is Circle && !figures[i, j].isPlayer) figures[i, j].Move(figures, rnd, field);
+                        }
+                    }
+                    stap++;
+                    break;
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (clicStart)
             {
-                for (int i = 0; i < 12; i++)                                                               ////
-                {                                                                                          ////
-                    for (int j = 0; j < 12; j++)                                                           ////
-                    {                                                                                      ////
-                        if (figures[i, j] is Triangle && CheckFigurePl(0)) doMovePl(figures[i, j]);        ////
-                        if (figures[i, j] is Triangle && CheckFigureCm(0)) doMoveCm(figures[i, j]);        ////
-                        if (figures[i, j] is Rect && CheckFigurePl(1)) doMovePl(figures[i, j]);            ////
-                        if (figures[i, j] is Rect && CheckFigureCm(1)) doMoveCm(figures[i, j]);            ////
-                        if (figures[i, j] is Circle && CheckFigurePl(2)) doMovePl(figures[i, j]);          ////
-                        if (figures[i, j] is Circle && CheckFigureCm(2)) doMoveCm(figures[i, j]);          ////
-                        //figures[i, j]?.Move(figures, rnd, field);                                        ////
-                    }                                                                                      ////
-                }
+                Queue(stap % 6);
             }
             Refresh();
         }
 
         private void gameField_Paint(object sender, PaintEventArgs e)
         {
-            int h = (int)field.GetSizeCellH();
-            int w = (int)field.GetSizeCellW();
-
             //draw grid
-            for (int i = 0; i < 15; i++)
-            {
-                if (i == 7 || i == 5) e.Graphics.DrawLine(new Pen(Color.Black), 4, 3 + i * h, gameField.Width - 4, 3 + i * h);
-                e.Graphics.DrawLine(new Pen(Color.Black), 4 + i * w, 4, 4 + i * w, gameField.Height - 4);
-                e.Graphics.DrawLine(new Pen(Color.Black), 4, 4 + i * h, gameField.Width - 4, 4 + i * h);
-            }
+            field.DrawGrid(e.Graphics);
 
             //draw figures
-            for (int i = 0; i < 12; i++)                                                      ////
-            {                                                                                 ////
-                for (int j = 0; j < 12; j++)                                                  ////
-                {                                                                             ////
-                    if (figures[i, j] != null) figures[i, j].Draw(e.Graphics);                ////
-                }                                                                             ////
+            for (int i = 0; i < 12; i++)                                                     
+            {                                                                                
+                for (int j = 0; j < 12; j++)                                                 
+                {                                                                            
+                    if (figures[i, j] != null) figures[i, j].Draw(e.Graphics);               
+                }                                                                            
             }
         }
 
@@ -187,7 +217,7 @@ namespace GeometryChess
 
         private void buttonCircle_Paint(object sender, PaintEventArgs e)
         {
-            (new Circle(-1, -1, 5, 5, buttonCircle.Width - 10, buttonCircle.Height - 10, Color.Black, Color.Black, player)).Draw(e.Graphics);
+            new Circle(-1, -1, 5, 5, buttonCircle.Width - 10, buttonCircle.Height - 10, Color.Black, Color.Black, player).Draw(e.Graphics);
         }
 
         private void Form1_Load(object sender, EventArgs e)

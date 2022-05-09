@@ -13,7 +13,7 @@ namespace GeometryChess
         protected SolidBrush brush;
         protected Pen pen;
         protected Color color, colorP;
-        
+
         protected bool ChackIndex(Figure[,] map, int distX, int distY) => indexX + distX < 12 && indexX + distX >= 0 && indexY + distY < 12 && indexY + distY >= 0 && map[indexX + distX, indexY + distY] == null;
         protected bool ChackIndexEat(Figure[,] map, int distX, int distY) => indexX + distX < 12 && indexX + distX >= 0 && indexY + distY < 12 && indexY + distY >= 0 && map[indexX + distX, indexY + distY] != null && map[indexX + distX, indexY + distY].isPlayer != isPlayer;
 
@@ -24,8 +24,8 @@ namespace GeometryChess
             this.y = y;
             this.w = w;
             this.h = h;
-            this.indexX= indexX;
-            this.indexY= indexY;
+            this.indexX = indexX;
+            this.indexY = indexY;
             this.color = color;
             this.colorP = colorP;
             isPlayer = player;
@@ -34,10 +34,6 @@ namespace GeometryChess
             pen = new Pen(colorP);
         }
 
-        //internal int Quatiti()
-        //{
-        //    return coins / cost;
-        //}
 
 
         internal abstract void Draw(Graphics g);
@@ -97,10 +93,10 @@ namespace GeometryChess
         protected override bool MoveDirection(Figure[,] map, Random rnd, GameField field)
         {
             int side = rnd.Next(3);
-            int distX=0, distY=0;
-            for (int i=0; i<3; i++)
+            int distX = 0, distY = 0;
+            for (int i = 0; i < 3; i++)
             {
-                    switch (side)
+                switch (side)
                 {
                     case 0: //вперёд
                         distX = 0;
@@ -132,11 +128,10 @@ namespace GeometryChess
 
         protected override bool EatDirection(Figure[,] map, Random rnd, GameField field)
         {
-            int side = rnd.Next(3);
             int distX = 0, distY = 0;
             for (int i = 0; i < 3; i++)
             {
-                switch (side)
+                switch (i)
                 {
                     case 0: //назад
                         distX = 0;
@@ -162,9 +157,8 @@ namespace GeometryChess
                     indexY += distY;
                     return true;
                 }
-                else side = rnd.Next(3);
             }
-             return false;
+            return false;
         }
     }
 
@@ -184,7 +178,7 @@ namespace GeometryChess
             g.DrawRectangle(pen, x, y, w, h);
         }
 
-        
+
         public override Figure Clone(int indexX, int indexY, float x, float y, int w, int h, Color color, Color colorP, bool isPlayer)
         {
             return new Rect(indexX, indexY, x, y, w, h, color, colorP, isPlayer);
@@ -234,12 +228,11 @@ namespace GeometryChess
 
         protected override bool EatDirection(Figure[,] map, Random rnd, GameField field)
         {
-            int side = rnd.Next(4);
             int distX = 0, distY = 0;
 
             for (int i = 0; i < 4; i++)
             {
-                switch (side)
+                switch (i)
                 {
                     case 0: //вперёд
                         distX = 0;
@@ -269,7 +262,6 @@ namespace GeometryChess
                     indexY += distY;
                     return true;
                 }
-                side = rnd.Next(4);
             }
             return false;
         }
@@ -354,12 +346,11 @@ namespace GeometryChess
 
         protected override bool EatDirection(Figure[,] map, Random rnd, GameField field)
         {
-            int side = rnd.Next(8);
             int distX = 0, distY = 0;
 
             for (int i = 0; i < 8; i++)
             {
-                switch (side)
+                switch (i)
                 {
                     case 0://вперёд влево
                         distX = -distanceHit;
@@ -402,7 +393,6 @@ namespace GeometryChess
                     indexY += distY;
                     return true;
                 }
-                side = rnd.Next(8);
             }
             return false;
         }
