@@ -11,6 +11,7 @@ namespace GeometryChess
     {
         int width, height;
         float sizeCellX, sizeCellY;
+        public Figure[,] figures { get; protected set; } = new Figure[12, 12];
 
 
         public GameField(int width, int height)
@@ -31,7 +32,12 @@ namespace GeometryChess
             }
         }
 
-        public void DrawFigures(Graphics g, Figure[,] figures)
+        public void FieldFill()
+        {
+
+        }
+
+        public void DrawFigures(Graphics g)
         {
             for (int i = 0; i < 12; i++)
             {

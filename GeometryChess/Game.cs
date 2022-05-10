@@ -12,32 +12,40 @@ namespace GeometryChess
         // автошахматы
         // Проблемы: определение победителя и завершения игры + рефакторинг, правила
 
-        int stap = 0;
+        int step = 0;
 
         Random rnd = new Random();
         Figure[,] figures = new Figure[12, 12];
         Controler player, fate;
         GameField field;
 
+        SelectedFigure selectedFigure;
+        Dictionary<SelectedFigure, Figure> figs = new Dictionary<SelectedFigure, Figure>()
+        {
+            { SelectedFigure.Triangle , new Triangle() },
+             { SelectedFigure.Rectangle , new Rect() },
+              { SelectedFigure.Circle , new Circle() }
+        };
 
         public Game() { }
-        public Game(GameField field, SelectedFigure selectedFigure, Dictionary<SelectedFigure, Figure> figs)
+        public Game(GameField field, SelectedFigure selectedFigure)
         {
-            player = new Controler(figures, true, field, selectedFigure, figs);
-            fate = new Controler(figures, false, field, selectedFigure, figs);
+            player = new Controler(true, field, figs);
+            fate = new Controler(false, field, figs);
 
             this.field = field;
+            this.selectedFigure = selectedFigure;
         }
 
         public void DrawField(Graphics g)
         {
             field.DrawGrid(g);
-            field.DrawFigures(g, figures);
+            field.DrawFigures(g);
         }
 
         public void Placement(int X, int Y)
         {
-            player.Placement(X, Y);
+            player.Placement(X, Y, selectedFigure);
         }
 
         public void Placement()
@@ -47,76 +55,46 @@ namespace GeometryChess
 
         public int GetQuantiti(Figure f)
         {
-            return player.coinsPl/f.cost;
+            return player.coins / f.cost;
         }
-        
+
+
+        private void Stap(Type type, bool plaer)
+        {
+            for (int i = 0; i < 12; i++)
+            {
+                for (int j = 0; j < 12; j++)
+                {
+                    if (field.figures[i, j].GetType() == type && field.figures[i, j].isPlayer) field.figures[i, j].Move(field.figures, rnd, field);
+                }
+            }
+        }
 
         public void Queue()
         {
-            switch (stap % 6)
+            switch (step % 6)
             {
                 case 0:
-                    for (int i = 0; i < 12; i++)
-                    {
-                        for (int j = 0; j < 12; j++)
-                        {
-                            if (figures[i, j] is Triangle && figures[i, j].isPlayer) figures[i, j].Move(figures, rnd, field);
-                        }
-                    }
-                    stap++;
+                    Stap(typeof(Triangle), true);
                     break;
                 case 1:
-
-                    for (int i = 0; i < 12; i++)
-                    {
-                        for (int j = 0; j < 12; j++)
-                        {
-                            if (figures[i, j] is Triangle && !figures[i, j].isPlayer) figures[i, j].Move(figures, rnd, field);
-                        }
-                    }
-                    stap++;
+                    Stap(typeof(Triangle), false);
                     break;
                 case 2:
-                    for (int i = 0; i < 12; i++)
-                    {
-                        for (int j = 0; j < 12; j++)
-                        {
-                            if (figures[i, j] is Rect && figures[i, j].isPlayer) figures[i, j].Move(figures, rnd, field);
-                        }
-                    }
-                    stap++;
+                    Stap(typeof(Rect), true);
                     break;
                 case 3:
-                    for (int i = 0; i < 12; i++)
-                    {
-                        for (int j = 0; j < 12; j++)
-                        {
-                            if (figures[i, j] is Rect && !figures[i, j].isPlayer) figures[i, j].Move(figures, rnd, field);
-                        }
-                    }
-                    stap++;
+                    Stap(typeof(Rect), false);
                     break;
                 case 4:
-                    for (int i = 0; i < 12; i++)
-                    {
-                        for (int j = 0; j < 12; j++)
-                        {
-                            if (figures[i, j] is Circle && figures[i, j].isPlayer) figures[i, j].Move(figures, rnd, field);
-                        }
-                    }
-                    stap++;
+                    Stap(typeof(Circle), true);
+
                     break;
                 case 5:
-                    for (int i = 0; i < 12; i++)
-                    {
-                        for (int j = 0; j < 12; j++)
-                        {
-                            if (figures[i, j] is Circle && !figures[i, j].isPlayer) figures[i, j].Move(figures, rnd, field);
-                        }
-                    }
-                    stap++;
+                    Stap(typeof(Circle), false);
                     break;
             }
+            step++;
         }
     }
 }

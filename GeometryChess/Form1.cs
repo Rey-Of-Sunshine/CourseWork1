@@ -17,7 +17,7 @@ namespace GeometryChess
             gameField.Height = 440;                                          
                                                                              
             field = new GameField(gameField.Width, gameField.Height);
-            game = new Game(field, selectedFigure, figs);
+            game = new Game(field, selectedFigure);
                                                   
         }
 
@@ -25,17 +25,8 @@ namespace GeometryChess
 
         SelectedFigure selectedFigure = SelectedFigure.Delete;
 
-        Dictionary<SelectedFigure, Figure> figs = new Dictionary<SelectedFigure, Figure>()
-        {
-            { SelectedFigure.Triangle , new Triangle() },
-             { SelectedFigure.Rectangle , new Rect() },
-              { SelectedFigure.Circle , new Circle() }
-        };
-
-
         Game game;
         GameField field;                                                     
-
 
         private void buttonTriangle_Click(object sender, EventArgs e)
         {

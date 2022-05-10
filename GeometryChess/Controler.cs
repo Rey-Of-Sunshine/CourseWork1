@@ -11,82 +11,67 @@ namespace GeometryChess
     {
         //расстановка фигур
 
-        int touchX, touchY, h, w;
-        public int coinsPl { get; private set; } = 150;
-        int coinsCm = 150;
-        float x, y;
+        int h, w;
+        public int coins { get; private set; } = 150;
         int delta = 6;
         bool plaer;
 
-        GameField field;
-        Figure[,] figures;
-        SelectedFigure selectedFigure;
         Dictionary<SelectedFigure, Figure> figs;
+        GameField field;
+
 
         public Controler() { }
 
-        public Controler(Figure[,] figures, bool plaer, GameField field, SelectedFigure selectedFigure, Dictionary<SelectedFigure, Figure> figs)
+        public Controler( bool plaer, GameField field, Dictionary<SelectedFigure, Figure> figs)
         {
-            this.figures = figures;
             this.plaer = plaer;
-            this.field = field;
-            this.selectedFigure = selectedFigure;
             this.figs = figs;
+            this.field = field;
 
             h = (int)field.GetSizeCellH() - delta;
             w = (int)field.GetSizeCellW() - delta;
-            x = 4 + delta / 2 + touchX * field.GetSizeCellW();
-            y = 4 + delta / 2 + touchY * field.GetSizeCellH();
         }
 
-        private bool CheckPlacement(int x, int y) => coinsPl >= 12 && figures[x, y] == null;
-        internal void Placement(int X, int Y)
+        private bool CheckPlacement(Figure f) => coins >= 12 && f == null;
+        internal void Placement(int X, int Y, SelectedFigure selectedFigure)
         {
             int touchX = field.TouchCellX(X);
             int touchY = field.TouchCellY(Y);
-
+            float x = 4 + delta / 2 + touchX * field.GetSizeCellW();
+            float y = 4 + delta / 2 + touchY * field.GetSizeCellH();
 
             if (field.TouchCell(X, Y) && touchY >= 7)
             {
                 if (selectedFigure == SelectedFigure.Delete)
                 {
-                    coinsPl = (figures[touchX, touchY] != null) ? +figures[touchX, touchY].cost : 0;
-                    figures[touchX, touchY] = null;
+                    coins += (field.figures[touchX, touchY] != null) ? field.figures[touchX, touchY].cost : 0;
+                    field.figures[touchX, touchY] = null;
                 }
-                else if (CheckPlacement(touchX, touchY))
+                else if (CheckPlacement(field.figures[touchX, touchY]))
                 {
-                    figures[touchX, touchY] = figs[selectedFigure].Clone(touchX, touchY, x, y, w, h, Color.Blue, Color.Black, true);
-                    coinsPl -= figures[touchX, touchY].cost;
+                    field.figures[touchX, touchY] = figs[selectedFigure].Clone(touchX, touchY, x, y, w, h, Color.Blue, Color.Black, plaer);
+                    coins -= field.figures[touchX, touchY].cost;
                 }
             }
         }
 
         internal void Placement(Random rnd)
         {
+            
 
-            while (coinsCm >= 12)
+            while (coins >= 12)
             {
+                SelectedFigure selectedFigure = (SelectedFigure)rnd.Next(3);
                 int touchX = rnd.Next(12), touchY = rnd.Next(5);
                 float x = 4 + delta / 2 + touchX * field.GetSizeCellW();
                 float y = 4 + delta / 2 + touchY * field.GetSizeCellH();
+                x = 4 + delta / 2 + touchX * field.GetSizeCellW();
+                y = 4 + delta / 2 + touchY * field.GetSizeCellH();
 
-                if (figures[touchX, touchY] == null)
+                if (field.figures[touchX, touchY] == null)
                 {
-                    switch (rnd.Next(3))
-                    {
-                        case 0:
-                            figures[touchX, touchY] = new Triangle(touchX, touchY, x, y, w, h, Color.Green, Color.Black, plaer);
-                            coinsCm -= figures[touchX, touchY].cost;
-                            break;
-                        case 1:
-                            figures[touchX, touchY] = new Rect(touchX, touchY, x, y, w, h, Color.Green, Color.Black, plaer);
-                            coinsCm -= figures[touchX, touchY].cost;
-                            break;
-                        case 2:
-                            figures[touchX, touchY] = new Circle(touchX, touchY, x, y, w, h, Color.Green, Color.Black, plaer);
-                            coinsCm -= figures[touchX, touchY].cost;
-                            break;
-                    }
+                    field.figures[touchX, touchY] = figs[selectedFigure].Clone(touchX, touchY, x, y, w, h, Color.Green, Color.Black, plaer);
+                    coins -= field.figures[touchX, touchY].cost;
                 }
             }
         }
