@@ -59,7 +59,7 @@ namespace GeometryChess
         {
             
 
-            while (coins >= 12)
+            while (coins > 12)
             {
                 SelectedFigure selectedFigure = (SelectedFigure)rnd.Next(3);
                 int touchX = rnd.Next(12), touchY = rnd.Next(5);

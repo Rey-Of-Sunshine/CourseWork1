@@ -9,7 +9,6 @@ namespace GeometryChess
 {
     internal class Game
     {
-        // автошахматы
         // Проблемы: определение победителя и завершения игры + рефакторинг, правила
 
         int step = 0;
@@ -65,6 +64,22 @@ namespace GeometryChess
                     if (field.figures[i, j]?.GetType() == type && field.figures[i, j].isPlayer == plaer) field.figures[i, j].Move(field.figures, rnd, field);
                 }
             }
+        }
+
+        public int Winner(bool player)
+        {
+            int qPiecePl = 0, qPieceCm = 0;
+            for (int i = 0; i < 12; i++)
+            {
+                for (int j = 0; j < 12; j++)
+                {
+                    qPiecePl += (field.figures[i, j] != null && field.figures[i, j].isPlayer) ? 1 : 0;
+                    qPieceCm += (field.figures[i, j] != null && !field.figures[i, j].isPlayer) ? 1 : 0;
+                }
+            }
+            if (qPiecePl > qPieceCm && qPiecePl != 0 && qPieceCm == 0) return 1;
+            else if (qPiecePl < qPieceCm && qPieceCm != 0 && qPiecePl == 0) return 2;
+                    else return 0;
         }
 
         public void Queue()

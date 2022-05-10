@@ -76,6 +76,16 @@ namespace GeometryChess
             if (clicStart)
             {
                 game.Queue();
+                if (game.Winner(true) ==1)
+                {
+                    clicStart = false;
+                    MessageBox.Show("Победа!");
+                }
+                else if (game.Winner(false)==2)
+                {
+                    clicStart = false;
+                    MessageBox.Show("Вы проиграли!");
+                }
             }
             Refresh();
         }
