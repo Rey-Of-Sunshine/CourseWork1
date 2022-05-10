@@ -79,7 +79,7 @@ namespace GeometryChess
             }
             if (qPiecePl > qPieceCm && qPiecePl != 0 && qPieceCm == 0) return 1;
             else if (qPiecePl < qPieceCm && qPieceCm != 0 && qPiecePl == 0) return 2;
-                    else return 0;
+            else return 0;
         }
 
         public void Queue()

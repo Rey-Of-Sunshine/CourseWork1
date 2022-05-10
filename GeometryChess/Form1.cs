@@ -13,20 +13,24 @@ namespace GeometryChess
         {
             InitializeComponent();
 
-            gameField.Width = 440;                                           
-            gameField.Height = 440;                                          
-                                                                             
+            windowFinish = new End_Reload(this);
+
+            gameField.Width = 440;
+            gameField.Height = 440;
+
             field = new GameField(gameField.Width, gameField.Height);
             game = new Game(field, selectedFigure);
-                                                  
+
         }
 
         bool clicStart = false;
+        public string winer { get; private set; }
 
         SelectedFigure selectedFigure = SelectedFigure.Delete;
 
         Game game;
-        GameField field;                                                     
+        GameField field;
+        End_Reload windowFinish;
 
         private void buttonTriangle_Click(object sender, EventArgs e)
         {
@@ -69,22 +73,28 @@ namespace GeometryChess
             quantitiRectangle.Text = Convert.ToString(game.GetQuantiti(new Rect()));
             quantitiCircle.Text = Convert.ToString(game.GetQuantiti(new Circle()));
         }
-        
+
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (clicStart)
             {
                 game.Queue();
-                if (game.Winner(true) ==1)
+                if (game.Winner(true) == 1)
                 {
                     clicStart = false;
-                    MessageBox.Show("Победа!");
+                    Enabled = false;
+                    winer = "Победа!";
+                    windowFinish.Show();
+                    //MessageBox.Show(winer);
                 }
-                else if (game.Winner(false)==2)
+                else if (game.Winner(false) == 2)
                 {
                     clicStart = false;
-                    MessageBox.Show("Вы проиграли!");
+                    Enabled = false;
+                    winer = "Вы проиграли!";
+                    windowFinish.Show();
+                    //MessageBox.Show(winer);
                 }
             }
             Refresh();
@@ -115,9 +125,9 @@ namespace GeometryChess
         {
             (new StartWindow()).ShowDialog();
             game.Placement();
-            quantitiTriangle.Text = Convert.ToString(150/13);
-            quantitiRectangle.Text = Convert.ToString(150/13);
-            quantitiCircle.Text = Convert.ToString(150/12);
+            quantitiTriangle.Text = Convert.ToString(150 / 13);
+            quantitiRectangle.Text = Convert.ToString(150 / 13);
+            quantitiCircle.Text = Convert.ToString(150 / 12);
         }
 
 
