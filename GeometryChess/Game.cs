@@ -15,11 +15,9 @@ namespace GeometryChess
         int step = 0;
 
         Random rnd = new Random();
-        Figure[,] figures = new Figure[12, 12];
         Controler player, fate;
         GameField field;
 
-        SelectedFigure selectedFigure;
         Dictionary<SelectedFigure, Figure> figs = new Dictionary<SelectedFigure, Figure>()
         {
             { SelectedFigure.Triangle , new Triangle() },
@@ -34,7 +32,6 @@ namespace GeometryChess
             fate = new Controler(false, field, figs);
 
             this.field = field;
-            this.selectedFigure = selectedFigure;
         }
 
         public void DrawField(Graphics g)
@@ -43,7 +40,7 @@ namespace GeometryChess
             field.DrawFigures(g);
         }
 
-        public void Placement(int X, int Y)
+        public void Placement(int X, int Y, SelectedFigure selectedFigure)
         {
             player.Placement(X, Y, selectedFigure);
         }
@@ -65,7 +62,7 @@ namespace GeometryChess
             {
                 for (int j = 0; j < 12; j++)
                 {
-                    if (field.figures[i, j].GetType() == type && field.figures[i, j].isPlayer) field.figures[i, j].Move(field.figures, rnd, field);
+                    if (field.figures[i, j]?.GetType() == type && field.figures[i, j].isPlayer == plaer) field.figures[i, j].Move(field.figures, rnd, field);
                 }
             }
         }

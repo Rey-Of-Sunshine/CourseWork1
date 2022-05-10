@@ -63,7 +63,7 @@ namespace GeometryChess
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
-            game.Placement(e.X, e.Y);
+            game.Placement(e.X, e.Y, selectedFigure);
 
             quantitiTriangle.Text = Convert.ToString(game.GetQuantiti(new Triangle()));
             quantitiRectangle.Text = Convert.ToString(game.GetQuantiti(new Rect()));
