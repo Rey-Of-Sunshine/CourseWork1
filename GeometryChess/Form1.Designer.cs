@@ -41,6 +41,7 @@
             this.delete = new System.Windows.Forms.Button();
             this.Start = new System.Windows.Forms.Button();
             this.Stop = new System.Windows.Forms.Button();
+            this.rules = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gameField)).BeginInit();
             this.SuspendLayout();
             // 
@@ -57,7 +58,7 @@
             // quantitiTriangle
             // 
             this.quantitiTriangle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.quantitiTriangle.Location = new System.Drawing.Point(787, 72);
+            this.quantitiTriangle.Location = new System.Drawing.Point(787, 113);
             this.quantitiTriangle.Name = "quantitiTriangle";
             this.quantitiTriangle.ReadOnly = true;
             this.quantitiTriangle.ShortcutsEnabled = false;
@@ -69,7 +70,7 @@
             // quantitiRectangle
             // 
             this.quantitiRectangle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.quantitiRectangle.Location = new System.Drawing.Point(787, 159);
+            this.quantitiRectangle.Location = new System.Drawing.Point(787, 200);
             this.quantitiRectangle.Name = "quantitiRectangle";
             this.quantitiRectangle.ReadOnly = true;
             this.quantitiRectangle.ShortcutsEnabled = false;
@@ -81,7 +82,7 @@
             // quantitiCircle
             // 
             this.quantitiCircle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.quantitiCircle.Location = new System.Drawing.Point(787, 249);
+            this.quantitiCircle.Location = new System.Drawing.Point(787, 290);
             this.quantitiCircle.Name = "quantitiCircle";
             this.quantitiCircle.ReadOnly = true;
             this.quantitiCircle.ShortcutsEnabled = false;
@@ -99,7 +100,7 @@
             // buttonTriangle
             // 
             this.buttonTriangle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonTriangle.Location = new System.Drawing.Point(672, 58);
+            this.buttonTriangle.Location = new System.Drawing.Point(672, 99);
             this.buttonTriangle.Name = "buttonTriangle";
             this.buttonTriangle.Size = new System.Drawing.Size(50, 50);
             this.buttonTriangle.TabIndex = 5;
@@ -110,7 +111,7 @@
             // buttonRectangle
             // 
             this.buttonRectangle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonRectangle.Location = new System.Drawing.Point(672, 145);
+            this.buttonRectangle.Location = new System.Drawing.Point(672, 186);
             this.buttonRectangle.Name = "buttonRectangle";
             this.buttonRectangle.Size = new System.Drawing.Size(50, 50);
             this.buttonRectangle.TabIndex = 6;
@@ -121,7 +122,7 @@
             // buttonCircle
             // 
             this.buttonCircle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonCircle.Location = new System.Drawing.Point(672, 235);
+            this.buttonCircle.Location = new System.Drawing.Point(672, 276);
             this.buttonCircle.Name = "buttonCircle";
             this.buttonCircle.Size = new System.Drawing.Size(50, 50);
             this.buttonCircle.TabIndex = 7;
@@ -132,7 +133,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(714, 25);
+            this.label1.Location = new System.Drawing.Point(714, 66);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(113, 16);
             this.label1.TabIndex = 8;
@@ -141,7 +142,7 @@
             // delete
             // 
             this.delete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.delete.Location = new System.Drawing.Point(690, 320);
+            this.delete.Location = new System.Drawing.Point(690, 361);
             this.delete.Name = "delete";
             this.delete.Size = new System.Drawing.Size(125, 47);
             this.delete.TabIndex = 9;
@@ -171,11 +172,22 @@
             this.Stop.UseVisualStyleBackColor = true;
             this.Stop.Click += new System.EventHandler(this.Stop_Click);
             // 
+            // rules
+            // 
+            this.rules.Location = new System.Drawing.Point(787, 12);
+            this.rules.Name = "rules";
+            this.rules.Size = new System.Drawing.Size(95, 31);
+            this.rules.TabIndex = 12;
+            this.rules.Text = "правила";
+            this.rules.UseVisualStyleBackColor = true;
+            this.rules.Click += new System.EventHandler(this.правила_Click);
+            // 
             // GameProcess
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(902, 653);
+            this.Controls.Add(this.rules);
             this.Controls.Add(this.Stop);
             this.Controls.Add(this.Start);
             this.Controls.Add(this.delete);
@@ -213,6 +225,7 @@
         private System.Windows.Forms.Button delete;
         private System.Windows.Forms.Button Start;
         private System.Windows.Forms.Button Stop;
+        private System.Windows.Forms.Button rules;
     }
 }
 

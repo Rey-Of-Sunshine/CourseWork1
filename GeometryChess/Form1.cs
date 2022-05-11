@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace GeometryChess
@@ -130,6 +131,9 @@ namespace GeometryChess
             quantitiCircle.Text = Convert.ToString(150 / 12);
         }
 
-
+        private void правила_Click(object sender, EventArgs e)
+        {
+            Process.Start("D:\\Света\\Программирование\\Кууурсаач\\GeometryChess\\GeometryChess\\Rules.txt");
+        }
     }
 }
