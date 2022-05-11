@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Diagnostics;
 using System.Windows.Forms;
+using System.IO;
+using System.Linq;
 
 namespace GeometryChess
 {
@@ -108,18 +110,21 @@ namespace GeometryChess
 
         private void buttonTriangle_Paint(object sender, PaintEventArgs e)
         {
-            (new Triangle(-1, -1, 5, 5, buttonTriangle.Width - 10, buttonTriangle.Height - 10, Color.Black, Color.Black, true)).Draw(e.Graphics);
+            Triangle tr = new Triangle(-1, -1, 5, 5, buttonTriangle.Width - 10, buttonTriangle.Height - 10, Color.Black, Color.Black, true);
+            tr.Draw(e.Graphics);
         }
 
 
         private void buttonRectangle_Paint(object sender, PaintEventArgs e)
         {
-            (new Rect(-1, -1, 5, 5, buttonRectangle.Width - 10, buttonRectangle.Height - 10, Color.Black, Color.Black, true)).Draw(e.Graphics);
+            Rect rect = new Rect(-1, -1, 5, 5, buttonRectangle.Width - 10, buttonRectangle.Height - 10, Color.Black, Color.Black, true);
+            rect.Draw(e.Graphics);
         }
 
         private void buttonCircle_Paint(object sender, PaintEventArgs e)
         {
-            new Circle(-1, -1, 5, 5, buttonCircle.Width - 10, buttonCircle.Height - 10, Color.Black, Color.Black, true).Draw(e.Graphics);
+            Circle circle = new Circle(-1, -1, 5, 5, buttonCircle.Width - 10, buttonCircle.Height - 10, Color.Black, Color.Black, true);
+            circle.Draw(e.Graphics);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -131,9 +136,11 @@ namespace GeometryChess
             quantitiCircle.Text = Convert.ToString(150 / 12);
         }
 
+        Ruuuules rul = new Ruuuules();
+
         private void правила_Click(object sender, EventArgs e)
         {
-            Process.Start("D:\\Света\\Программирование\\Кууурсаач\\GeometryChess\\GeometryChess\\Rules.txt");
+            rul.Show();
         }
     }
 }

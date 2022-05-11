@@ -10,17 +10,18 @@ using System.Windows.Forms;
 
 namespace GeometryChess
 {
-    public partial class StartWindow : Form
+    public partial class Ruuuules : Form
     {
-        public StartWindow()
+        public Ruuuules()
         {
             InitializeComponent();
+            textBox1.Text = Properties.Resources.Rules1;
         }
 
-
-        private void buttonStart_Click(object sender, EventArgs e)
+        private void Ruuuules_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Close();
+            e.Cancel = true;
+            Hide();
         }
     }
 }
