@@ -9,7 +9,7 @@ using System.Linq;
 namespace GeometryChess
 {
 
-    enum SelectedFigure { Triangle, Rectangle, Circle, Delete }
+    enum SelectedFigure { Triangle, Rectangle, Circle, Delete, Null }
     public partial class GameProcess : Form
     {
         public GameProcess()
@@ -24,6 +24,9 @@ namespace GeometryChess
             field = new GameField(gameField.Width, gameField.Height);
             game = new Game(field, selectedFigure);
 
+            tr = new Triangle(-1, -1, 5, 5, buttonTriangle.Width - 10, buttonTriangle.Height - 10, Color.Black, Color.Black, true);
+            rect = new Rect(-1, -1, 5, 5, buttonRectangle.Width - 10, buttonRectangle.Height - 10, Color.Black, Color.Black, true);
+            circle = new Circle(-1, -1, 5, 5, buttonCircle.Width - 10, buttonCircle.Height - 10, Color.Black, Color.Black, true);
         }
 
         bool clicStart = false;
@@ -31,6 +34,9 @@ namespace GeometryChess
 
         SelectedFigure selectedFigure = SelectedFigure.Delete;
 
+        Triangle tr;
+        Rect rect;
+        Circle circle;
         Game game;
         GameField field;
         End_Reload windowFinish;
@@ -59,9 +65,12 @@ namespace GeometryChess
             clicStart = false;
         }
 
+
+
         private void button1_Click(object sender, EventArgs e) // доступность редактора
         {
             clicStart = true;
+            selectedFigure = SelectedFigure.Null;
             buttonTriangle.Enabled = false;
             buttonRectangle.Enabled = false;
             buttonCircle.Enabled = false;
@@ -110,20 +119,17 @@ namespace GeometryChess
 
         private void buttonTriangle_Paint(object sender, PaintEventArgs e)
         {
-            Triangle tr = new Triangle(-1, -1, 5, 5, buttonTriangle.Width - 10, buttonTriangle.Height - 10, Color.Black, Color.Black, true);
             tr.Draw(e.Graphics);
         }
 
 
         private void buttonRectangle_Paint(object sender, PaintEventArgs e)
         {
-            Rect rect = new Rect(-1, -1, 5, 5, buttonRectangle.Width - 10, buttonRectangle.Height - 10, Color.Black, Color.Black, true);
             rect.Draw(e.Graphics);
         }
 
         private void buttonCircle_Paint(object sender, PaintEventArgs e)
         {
-            Circle circle = new Circle(-1, -1, 5, 5, buttonCircle.Width - 10, buttonCircle.Height - 10, Color.Black, Color.Black, true);
             circle.Draw(e.Graphics);
         }
 

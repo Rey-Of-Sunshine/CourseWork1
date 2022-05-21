@@ -33,6 +33,7 @@
             // 
             // textBox1
             // 
+            this.textBox1.BackColor = System.Drawing.Color.Snow;
             this.textBox1.Location = new System.Drawing.Point(12, 12);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
@@ -47,6 +48,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Ivory;
             this.ClientSize = new System.Drawing.Size(800, 551);
             this.Controls.Add(this.textBox1);
             this.MaximumSize = new System.Drawing.Size(818, 598);

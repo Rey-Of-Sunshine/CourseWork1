@@ -32,7 +32,7 @@ namespace GeometryChess
             isPlayer = player;
 
             brush = new SolidBrush(color);
-            pen = new Pen(colorP);
+            pen = new Pen(colorP, 2);
         }
 
 

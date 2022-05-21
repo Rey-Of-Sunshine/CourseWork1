@@ -35,9 +35,10 @@
             // 
             // buttonReload
             // 
-            this.buttonReload.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonReload.BackColor = System.Drawing.Color.PaleTurquoise;
             this.buttonReload.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonReload.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonReload.ForeColor = System.Drawing.Color.MidnightBlue;
             this.buttonReload.Location = new System.Drawing.Point(196, 220);
             this.buttonReload.Name = "buttonReload";
             this.buttonReload.Size = new System.Drawing.Size(240, 47);
@@ -48,9 +49,10 @@
             // 
             // buttonClose
             // 
-            this.buttonClose.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonClose.BackColor = System.Drawing.Color.PaleTurquoise;
             this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonClose.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonClose.ForeColor = System.Drawing.Color.MidnightBlue;
             this.buttonClose.Location = new System.Drawing.Point(196, 314);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(240, 47);
@@ -63,7 +65,8 @@
             // 
             this.winer.AutoSize = true;
             this.winer.Font = new System.Drawing.Font("Microsoft YaHei UI Light", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.winer.Location = new System.Drawing.Point(188, 142);
+            this.winer.ForeColor = System.Drawing.Color.DarkGreen;
+            this.winer.Location = new System.Drawing.Point(188, 134);
             this.winer.Name = "winer";
             this.winer.Size = new System.Drawing.Size(102, 43);
             this.winer.TabIndex = 3;
@@ -74,6 +77,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Azure;
             this.ClientSize = new System.Drawing.Size(634, 466);
             this.Controls.Add(this.winer);
             this.Controls.Add(this.buttonClose);

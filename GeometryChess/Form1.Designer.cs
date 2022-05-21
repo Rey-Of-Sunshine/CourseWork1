@@ -57,6 +57,7 @@
             // 
             // quantitiTriangle
             // 
+            this.quantitiTriangle.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.quantitiTriangle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.quantitiTriangle.Location = new System.Drawing.Point(787, 113);
             this.quantitiTriangle.Name = "quantitiTriangle";
@@ -69,6 +70,7 @@
             // 
             // quantitiRectangle
             // 
+            this.quantitiRectangle.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.quantitiRectangle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.quantitiRectangle.Location = new System.Drawing.Point(787, 200);
             this.quantitiRectangle.Name = "quantitiRectangle";
@@ -81,6 +83,7 @@
             // 
             // quantitiCircle
             // 
+            this.quantitiCircle.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.quantitiCircle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.quantitiCircle.Location = new System.Drawing.Point(787, 290);
             this.quantitiCircle.Name = "quantitiCircle";
@@ -94,39 +97,41 @@
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Interval = 200;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // buttonTriangle
             // 
+            this.buttonTriangle.BackColor = System.Drawing.Color.PaleGoldenrod;
             this.buttonTriangle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonTriangle.Location = new System.Drawing.Point(672, 99);
             this.buttonTriangle.Name = "buttonTriangle";
             this.buttonTriangle.Size = new System.Drawing.Size(50, 50);
             this.buttonTriangle.TabIndex = 5;
-            this.buttonTriangle.UseVisualStyleBackColor = true;
+            this.buttonTriangle.UseVisualStyleBackColor = false;
             this.buttonTriangle.Click += new System.EventHandler(this.buttonTriangle_Click);
             this.buttonTriangle.Paint += new System.Windows.Forms.PaintEventHandler(this.buttonTriangle_Paint);
             // 
             // buttonRectangle
             // 
+            this.buttonRectangle.BackColor = System.Drawing.Color.PaleGoldenrod;
             this.buttonRectangle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonRectangle.Location = new System.Drawing.Point(672, 186);
             this.buttonRectangle.Name = "buttonRectangle";
             this.buttonRectangle.Size = new System.Drawing.Size(50, 50);
             this.buttonRectangle.TabIndex = 6;
-            this.buttonRectangle.UseVisualStyleBackColor = true;
+            this.buttonRectangle.UseVisualStyleBackColor = false;
             this.buttonRectangle.Click += new System.EventHandler(this.buttonRectangle_Click);
             this.buttonRectangle.Paint += new System.Windows.Forms.PaintEventHandler(this.buttonRectangle_Paint);
             // 
             // buttonCircle
             // 
+            this.buttonCircle.BackColor = System.Drawing.Color.PaleGoldenrod;
             this.buttonCircle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCircle.Location = new System.Drawing.Point(672, 276);
             this.buttonCircle.Name = "buttonCircle";
             this.buttonCircle.Size = new System.Drawing.Size(50, 50);
             this.buttonCircle.TabIndex = 7;
-            this.buttonCircle.UseVisualStyleBackColor = true;
+            this.buttonCircle.UseVisualStyleBackColor = false;
             this.buttonCircle.Click += new System.EventHandler(this.buttonCircle_Click);
             this.buttonCircle.Paint += new System.Windows.Forms.PaintEventHandler(this.buttonCircle_Paint);
             // 
@@ -141,51 +146,64 @@
             // 
             // delete
             // 
+            this.delete.BackColor = System.Drawing.Color.PaleGoldenrod;
             this.delete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.delete.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.delete.ForeColor = System.Drawing.Color.DarkGreen;
             this.delete.Location = new System.Drawing.Point(690, 361);
             this.delete.Name = "delete";
             this.delete.Size = new System.Drawing.Size(125, 47);
             this.delete.TabIndex = 9;
             this.delete.Text = "убрать";
-            this.delete.UseVisualStyleBackColor = true;
+            this.delete.UseVisualStyleBackColor = false;
             this.delete.Click += new System.EventHandler(this.dealet_Click);
             // 
             // Start
             // 
+            this.Start.BackColor = System.Drawing.Color.Honeydew;
             this.Start.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Start.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Start.ForeColor = System.Drawing.Color.Green;
             this.Start.Location = new System.Drawing.Point(690, 453);
             this.Start.Name = "Start";
             this.Start.Size = new System.Drawing.Size(125, 47);
             this.Start.TabIndex = 10;
             this.Start.Text = "Запустить";
-            this.Start.UseVisualStyleBackColor = true;
+            this.Start.UseVisualStyleBackColor = false;
             this.Start.Click += new System.EventHandler(this.button1_Click);
             // 
             // Stop
             // 
+            this.Stop.BackColor = System.Drawing.Color.Honeydew;
             this.Stop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Stop.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Stop.ForeColor = System.Drawing.Color.Green;
             this.Stop.Location = new System.Drawing.Point(690, 514);
             this.Stop.Name = "Stop";
             this.Stop.Size = new System.Drawing.Size(125, 47);
             this.Stop.TabIndex = 11;
             this.Stop.Text = "Остановить";
-            this.Stop.UseVisualStyleBackColor = true;
+            this.Stop.UseVisualStyleBackColor = false;
             this.Stop.Click += new System.EventHandler(this.Stop_Click);
             // 
             // rules
             // 
+            this.rules.BackColor = System.Drawing.Color.PaleGoldenrod;
+            this.rules.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rules.ForeColor = System.Drawing.Color.DarkOliveGreen;
             this.rules.Location = new System.Drawing.Point(787, 12);
             this.rules.Name = "rules";
             this.rules.Size = new System.Drawing.Size(95, 31);
             this.rules.TabIndex = 12;
             this.rules.Text = "правила";
-            this.rules.UseVisualStyleBackColor = true;
+            this.rules.UseVisualStyleBackColor = false;
             this.rules.Click += new System.EventHandler(this.правила_Click);
             // 
             // GameProcess
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.LemonChiffon;
             this.ClientSize = new System.Drawing.Size(902, 653);
             this.Controls.Add(this.rules);
             this.Controls.Add(this.Stop);

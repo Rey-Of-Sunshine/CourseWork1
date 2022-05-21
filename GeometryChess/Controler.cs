@@ -13,7 +13,7 @@ namespace GeometryChess
 
         int h, w;
         public int coins { get; private set; } = 150;
-        int delta = 6;
+        int delta = 8;
         bool plaer;
 
         Dictionary<SelectedFigure, Figure> figs;
@@ -22,7 +22,7 @@ namespace GeometryChess
 
         public Controler() { }
 
-        public Controler( bool plaer, GameField field, Dictionary<SelectedFigure, Figure> figs)
+        public Controler(bool plaer, GameField field, Dictionary<SelectedFigure, Figure> figs)
         {
             this.plaer = plaer;
             this.figs = figs;
@@ -42,14 +42,15 @@ namespace GeometryChess
 
             if (field.TouchCell(X, Y) && touchY >= 7)
             {
-                if (selectedFigure == SelectedFigure.Delete)
+                if (selectedFigure == SelectedFigure.Delete /*&& field.figures[touchX, touchY].isPlayer*/)
                 {
                     coins += (field.figures[touchX, touchY] != null) ? field.figures[touchX, touchY].cost : 0;
                     field.figures[touchX, touchY] = null;
                 }
+                else if (selectedFigure == SelectedFigure.Null) ;
                 else if (CheckPlacement(field.figures[touchX, touchY]))
                 {
-                    field.figures[touchX, touchY] = figs[selectedFigure].Clone(touchX, touchY, x, y, w, h, Color.Blue, Color.Black, plaer);
+                    field.figures[touchX, touchY] = figs[selectedFigure].Clone(touchX, touchY, x, y, w, h, Color.FromArgb(105, 199, 199), Color.FromArgb(57, 153, 146), plaer);
                     coins -= field.figures[touchX, touchY].cost;
                 }
             }
@@ -57,7 +58,7 @@ namespace GeometryChess
 
         internal void Placement(Random rnd)
         {
-            
+
 
             while (coins >= 12)
             {
@@ -70,7 +71,7 @@ namespace GeometryChess
 
                 if (field.figures[touchX, touchY] == null)
                 {
-                    field.figures[touchX, touchY] = figs[selectedFigure].Clone(touchX, touchY, x, y, w, h, Color.Green, Color.Black, plaer);
+                    field.figures[touchX, touchY] = figs[selectedFigure].Clone(touchX, touchY, x, y, w, h, Color.FromArgb(99, 45, 112), Color.FromArgb(58, 14, 65), plaer);
                     coins -= field.figures[touchX, touchY].cost;
                 }
             }

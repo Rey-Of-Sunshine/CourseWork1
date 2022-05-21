@@ -33,9 +33,11 @@
             // 
             // buttonStart
             // 
-            this.buttonStart.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonStart.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.buttonStart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.buttonStart.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonStart.Font = new System.Drawing.Font("Microsoft YaHei", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonStart.ForeColor = System.Drawing.Color.MidnightBlue;
             this.buttonStart.Location = new System.Drawing.Point(316, 283);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(266, 57);
@@ -48,6 +50,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Ivory;
             this.ClientSize = new System.Drawing.Size(902, 653);
             this.Controls.Add(this.buttonStart);
             this.MaximumSize = new System.Drawing.Size(920, 700);
