@@ -24,7 +24,6 @@ namespace GeometryChess
 
         private void buttonReload_Click(object sender, EventArgs e)
         {
-            Application.Exit();
             Application.Restart();
         }
 
@@ -36,6 +35,7 @@ namespace GeometryChess
         private void End_Reload_Load(object sender, EventArgs e)
         {
             winer.Text = gameProcess.winer;
+            FormBorderStyle = FormBorderStyle.None;
         }
     }
 }

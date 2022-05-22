@@ -43,12 +43,13 @@
             this.Stop = new System.Windows.Forms.Button();
             this.rules = new System.Windows.Forms.Button();
             this.Restart = new System.Windows.Forms.Button();
+            this.exit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gameField)).BeginInit();
             this.SuspendLayout();
             // 
             // gameField
             // 
-            this.gameField.Location = new System.Drawing.Point(34, 48);
+            this.gameField.Location = new System.Drawing.Point(32, 65);
             this.gameField.Name = "gameField";
             this.gameField.Size = new System.Drawing.Size(408, 408);
             this.gameField.TabIndex = 0;
@@ -60,7 +61,7 @@
             // 
             this.quantitiTriangle.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.quantitiTriangle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.quantitiTriangle.Location = new System.Drawing.Point(787, 113);
+            this.quantitiTriangle.Location = new System.Drawing.Point(805, 128);
             this.quantitiTriangle.Name = "quantitiTriangle";
             this.quantitiTriangle.ReadOnly = true;
             this.quantitiTriangle.ShortcutsEnabled = false;
@@ -73,7 +74,7 @@
             // 
             this.quantitiRectangle.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.quantitiRectangle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.quantitiRectangle.Location = new System.Drawing.Point(787, 200);
+            this.quantitiRectangle.Location = new System.Drawing.Point(805, 215);
             this.quantitiRectangle.Name = "quantitiRectangle";
             this.quantitiRectangle.ReadOnly = true;
             this.quantitiRectangle.ShortcutsEnabled = false;
@@ -86,7 +87,7 @@
             // 
             this.quantitiCircle.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.quantitiCircle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.quantitiCircle.Location = new System.Drawing.Point(787, 290);
+            this.quantitiCircle.Location = new System.Drawing.Point(805, 305);
             this.quantitiCircle.Name = "quantitiCircle";
             this.quantitiCircle.ReadOnly = true;
             this.quantitiCircle.ShortcutsEnabled = false;
@@ -104,7 +105,7 @@
             // 
             this.buttonTriangle.BackColor = System.Drawing.Color.PaleGoldenrod;
             this.buttonTriangle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonTriangle.Location = new System.Drawing.Point(672, 99);
+            this.buttonTriangle.Location = new System.Drawing.Point(708, 113);
             this.buttonTriangle.Name = "buttonTriangle";
             this.buttonTriangle.Size = new System.Drawing.Size(50, 50);
             this.buttonTriangle.TabIndex = 5;
@@ -116,7 +117,7 @@
             // 
             this.buttonRectangle.BackColor = System.Drawing.Color.PaleGoldenrod;
             this.buttonRectangle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonRectangle.Location = new System.Drawing.Point(672, 186);
+            this.buttonRectangle.Location = new System.Drawing.Point(708, 200);
             this.buttonRectangle.Name = "buttonRectangle";
             this.buttonRectangle.Size = new System.Drawing.Size(50, 50);
             this.buttonRectangle.TabIndex = 6;
@@ -128,7 +129,7 @@
             // 
             this.buttonCircle.BackColor = System.Drawing.Color.PaleGoldenrod;
             this.buttonCircle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonCircle.Location = new System.Drawing.Point(672, 276);
+            this.buttonCircle.Location = new System.Drawing.Point(708, 290);
             this.buttonCircle.Name = "buttonCircle";
             this.buttonCircle.Size = new System.Drawing.Size(50, 50);
             this.buttonCircle.TabIndex = 7;
@@ -139,11 +140,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(714, 66);
+            this.label1.Location = new System.Drawing.Point(802, 79);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(113, 16);
+            this.label1.Size = new System.Drawing.Size(72, 32);
             this.label1.TabIndex = 8;
-            this.label1.Text = "Осталось фигур";
+            this.label1.Text = "Осталось \r\nфигур";
             // 
             // delete
             // 
@@ -151,7 +152,7 @@
             this.delete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.delete.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.delete.ForeColor = System.Drawing.Color.DarkGreen;
-            this.delete.Location = new System.Drawing.Point(690, 361);
+            this.delete.Location = new System.Drawing.Point(708, 376);
             this.delete.Name = "delete";
             this.delete.Size = new System.Drawing.Size(137, 47);
             this.delete.TabIndex = 9;
@@ -165,7 +166,7 @@
             this.Start.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Start.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Start.ForeColor = System.Drawing.Color.Green;
-            this.Start.Location = new System.Drawing.Point(690, 453);
+            this.Start.Location = new System.Drawing.Point(708, 479);
             this.Start.Name = "Start";
             this.Start.Size = new System.Drawing.Size(137, 47);
             this.Start.TabIndex = 10;
@@ -180,7 +181,7 @@
             this.Stop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Stop.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Stop.ForeColor = System.Drawing.Color.Green;
-            this.Stop.Location = new System.Drawing.Point(690, 514);
+            this.Stop.Location = new System.Drawing.Point(708, 540);
             this.Stop.Name = "Stop";
             this.Stop.Size = new System.Drawing.Size(137, 47);
             this.Stop.TabIndex = 11;
@@ -193,9 +194,9 @@
             this.rules.BackColor = System.Drawing.Color.PaleGoldenrod;
             this.rules.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rules.ForeColor = System.Drawing.Color.DarkOliveGreen;
-            this.rules.Location = new System.Drawing.Point(787, 12);
+            this.rules.Location = new System.Drawing.Point(757, 31);
             this.rules.Name = "rules";
-            this.rules.Size = new System.Drawing.Size(95, 31);
+            this.rules.Size = new System.Drawing.Size(117, 31);
             this.rules.TabIndex = 12;
             this.rules.Text = "правила";
             this.rules.UseVisualStyleBackColor = false;
@@ -206,7 +207,7 @@
             this.Restart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.Restart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Restart.ForeColor = System.Drawing.Color.Green;
-            this.Restart.Location = new System.Drawing.Point(690, 588);
+            this.Restart.Location = new System.Drawing.Point(660, 603);
             this.Restart.Name = "Restart";
             this.Restart.Size = new System.Drawing.Size(137, 37);
             this.Restart.TabIndex = 14;
@@ -215,12 +216,26 @@
             this.Restart.Visible = false;
             this.Restart.Click += new System.EventHandler(this.Restart_Click);
             // 
+            // exit
+            // 
+            this.exit.BackColor = System.Drawing.Color.LemonChiffon;
+            this.exit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.exit.ForeColor = System.Drawing.Color.DarkKhaki;
+            this.exit.Location = new System.Drawing.Point(815, 607);
+            this.exit.Name = "exit";
+            this.exit.Size = new System.Drawing.Size(76, 31);
+            this.exit.TabIndex = 15;
+            this.exit.Text = "выход";
+            this.exit.UseVisualStyleBackColor = false;
+            this.exit.Click += new System.EventHandler(this.exit_Click);
+            // 
             // GameProcess
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LemonChiffon;
             this.ClientSize = new System.Drawing.Size(902, 653);
+            this.Controls.Add(this.exit);
             this.Controls.Add(this.Restart);
             this.Controls.Add(this.rules);
             this.Controls.Add(this.Stop);
@@ -262,6 +277,7 @@
         private System.Windows.Forms.Button Stop;
         private System.Windows.Forms.Button rules;
         private System.Windows.Forms.Button Restart;
+        private System.Windows.Forms.Button exit;
     }
 }
 

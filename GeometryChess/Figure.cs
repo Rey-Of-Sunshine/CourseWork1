@@ -15,8 +15,10 @@ namespace GeometryChess
         protected Pen pen;
         protected Color color, colorP;
 
-        protected bool ChackIndex(Figure[,] map, int distX, int distY) => indexX + distX < 12 && indexX + distX >= 0 && indexY + distY < 12 && indexY + distY >= 0 && map[indexX + distX, indexY + distY] == null;
-        protected bool ChackIndexEat(Figure[,] map, int distX, int distY) => indexX + distX < 12 && indexX + distX >= 0 && indexY + distY < 12 && indexY + distY >= 0 && map[indexX + distX, indexY + distY] != null && map[indexX + distX, indexY + distY].isPlayer != isPlayer;
+        protected bool ChackIndex(Figure[,] map, int distX, int distY) => indexX + distX < 12 && indexX + distX >= 0 && indexY + distY < 12 
+            && indexY + distY >= 0 && map[indexX + distX, indexY + distY] == null;
+        protected bool ChackIndexEat(Figure[,] map, int distX, int distY) => indexX + distX < 12 && indexX + distX >= 0 && indexY + distY < 12 
+            && indexY + distY >= 0 && map[indexX + distX, indexY + distY] != null && map[indexX + distX, indexY + distY].isPlayer != isPlayer;
 
         public Figure() { }
         protected Figure(int indexX, int indexY, float x, float y, int w, int h, Color color, Color colorP, bool player)

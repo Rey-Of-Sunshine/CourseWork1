@@ -27,5 +27,10 @@ namespace GeometryChess
         {
             Application.Exit();
         }
+
+        private void StartWindow_Load(object sender, EventArgs e)
+        {
+            FormBorderStyle = FormBorderStyle.None;
+        }
     }
 }

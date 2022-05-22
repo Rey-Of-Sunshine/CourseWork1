@@ -33,6 +33,7 @@ namespace GeometryChess
         public string winer { get; private set; }
 
         SelectedFigure selectedFigure = SelectedFigure.Delete;
+        StartWindow startW = new StartWindow();
 
         Triangle tr;
         Rect rect;
@@ -143,7 +144,9 @@ namespace GeometryChess
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            (new StartWindow()).ShowDialog();
+            startW.ShowDialog();
+            FormBorderStyle = FormBorderStyle.None;
+
             game.Placement();
             quantitiTriangle.Text = Convert.ToString(150 / 13);
             quantitiRectangle.Text = Convert.ToString(150 / 13);
@@ -157,5 +160,9 @@ namespace GeometryChess
             rul.Show();
         }
 
+        private void exit_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
+        }
     }
 }
