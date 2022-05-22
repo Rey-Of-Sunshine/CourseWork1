@@ -54,11 +54,11 @@
       <DependentUpon>End_Reload.cs</DependentUpon>
     </Compile>
     <Compile Include="Figure.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="GameProcess.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="GameProcess.Designer.cs">
+      <DependentUpon>GameProcess.cs</DependentUpon>
     </Compile>
     <Compile Include="GameField.cs" />
     <Compile Include="Program.cs" />
@@ -79,8 +79,8 @@
     <EmbeddedResource Include="End_Reload.resx">
       <DependentUpon>End_Reload.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="GameProcess.resx">
+      <DependentUpon>GameProcess.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -32,7 +32,7 @@ namespace GeometryChess
             w = (int)field.GetSizeCellW() - delta;
         }
 
-        private bool CheckPlacement(Figure f) => coins >= 12 && f == null;
+        private bool CheckPlacement(Figure f, int a) => coins - a >=0 & f == null;
         internal void Placement(int X, int Y, SelectedFigure selectedFigure)
         {
             int touchX = field.TouchCellX(X);
@@ -40,7 +40,7 @@ namespace GeometryChess
             float x = 4 + delta / 2 + touchX * field.GetSizeCellW();
             float y = 4 + delta / 2 + touchY * field.GetSizeCellH();
 
-            if (field.TouchCell(X, Y) && touchY >= 7)
+            if (field.TouchCell(X, Y) && touchY >= 6)
             {
                 if (selectedFigure == SelectedFigure.Delete /*&& field.figures[touchX, touchY].isPlayer*/)
                 {
@@ -48,7 +48,7 @@ namespace GeometryChess
                     field.figures[touchX, touchY] = null;
                 }
                 else if (selectedFigure == SelectedFigure.Null) ;
-                else if (CheckPlacement(field.figures[touchX, touchY]))
+                else if (CheckPlacement(field.figures[touchX, touchY], figs[selectedFigure].cost))
                 {
                     field.figures[touchX, touchY] = figs[selectedFigure].Clone(touchX, touchY, x, y, w, h, Color.FromArgb(105, 199, 199), Color.FromArgb(57, 153, 146), plaer);
                     coins -= field.figures[touchX, touchY].cost;
@@ -58,12 +58,12 @@ namespace GeometryChess
 
         internal void Placement(Random rnd)
         {
+            int a = 0;
 
-
-            while (coins >= 12)
+            while (coins - a >= 0)
             {
                 SelectedFigure selectedFigure = (SelectedFigure)rnd.Next(3);
-                int touchX = rnd.Next(12), touchY = rnd.Next(5);
+                int touchX = rnd.Next(12), touchY = rnd.Next(6);
                 float x = 4 + delta / 2 + touchX * field.GetSizeCellW();
                 float y = 4 + delta / 2 + touchY * field.GetSizeCellH();
                 x = 4 + delta / 2 + touchX * field.GetSizeCellW();
@@ -73,6 +73,7 @@ namespace GeometryChess
                 {
                     field.figures[touchX, touchY] = figs[selectedFigure].Clone(touchX, touchY, x, y, w, h, Color.FromArgb(99, 45, 112), Color.FromArgb(58, 14, 65), plaer);
                     coins -= field.figures[touchX, touchY].cost;
+                    a = field.figures[touchX, touchY].cost;
                 }
             }
         }

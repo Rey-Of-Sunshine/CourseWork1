@@ -26,15 +26,10 @@ namespace GeometryChess
         {
             for (int i = 0; i < 15; i++)
             {
-                if (i == 7 || i == 5) g.DrawLine(new Pen(Color.Black), 4, 3 + i * (int)GetSizeCellH(), width + 4, 3 + i * (int)GetSizeCellH());
+                if (i == 6 /*|| i == 5*/) g.DrawLine(new Pen(Color.Black), 4, 3 + i * (int)GetSizeCellH(), width + 4, 3 + i * (int)GetSizeCellH());
                 g.DrawLine(new Pen(Color.Black), 4 + i * (int)GetSizeCellW(), 4, 4 + i * (int)GetSizeCellW(), height + 4);
                 g.DrawLine(new Pen(Color.Black), 4, 4 + i * (int)GetSizeCellH(), width + 4, 4 + i * (int)GetSizeCellH());
             }
-        }
-
-        public void FieldFill()
-        {
-
         }
 
         public void DrawFigures(Graphics g)

@@ -39,7 +39,7 @@
             this.buttonStart.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonStart.Font = new System.Drawing.Font("Microsoft YaHei", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonStart.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.buttonStart.Location = new System.Drawing.Point(320, 275);
+            this.buttonStart.Location = new System.Drawing.Point(320, 300);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(266, 77);
             this.buttonStart.TabIndex = 0;
@@ -54,7 +54,7 @@
             this.Exit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Exit.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Exit.ForeColor = System.Drawing.Color.LightSeaGreen;
-            this.Exit.Location = new System.Drawing.Point(391, 518);
+            this.Exit.Location = new System.Drawing.Point(391, 543);
             this.Exit.Name = "Exit";
             this.Exit.Size = new System.Drawing.Size(127, 44);
             this.Exit.TabIndex = 1;
@@ -74,6 +74,7 @@
             this.MinimumSize = new System.Drawing.Size(920, 700);
             this.Name = "StartWindow";
             this.Text = "Start";
+            this.Load += new System.EventHandler(this.StartWindow_Load);
             this.ResumeLayout(false);
 
         }
