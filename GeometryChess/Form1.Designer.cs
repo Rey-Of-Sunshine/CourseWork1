@@ -42,6 +42,7 @@
             this.Start = new System.Windows.Forms.Button();
             this.Stop = new System.Windows.Forms.Button();
             this.rules = new System.Windows.Forms.Button();
+            this.Restart = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gameField)).BeginInit();
             this.SuspendLayout();
             // 
@@ -152,7 +153,7 @@
             this.delete.ForeColor = System.Drawing.Color.DarkGreen;
             this.delete.Location = new System.Drawing.Point(690, 361);
             this.delete.Name = "delete";
-            this.delete.Size = new System.Drawing.Size(125, 47);
+            this.delete.Size = new System.Drawing.Size(137, 47);
             this.delete.TabIndex = 9;
             this.delete.Text = "убрать";
             this.delete.UseVisualStyleBackColor = false;
@@ -166,7 +167,7 @@
             this.Start.ForeColor = System.Drawing.Color.Green;
             this.Start.Location = new System.Drawing.Point(690, 453);
             this.Start.Name = "Start";
-            this.Start.Size = new System.Drawing.Size(125, 47);
+            this.Start.Size = new System.Drawing.Size(137, 47);
             this.Start.TabIndex = 10;
             this.Start.Text = "Запустить";
             this.Start.UseVisualStyleBackColor = false;
@@ -175,12 +176,13 @@
             // Stop
             // 
             this.Stop.BackColor = System.Drawing.Color.Honeydew;
+            this.Stop.Enabled = false;
             this.Stop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Stop.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Stop.ForeColor = System.Drawing.Color.Green;
             this.Stop.Location = new System.Drawing.Point(690, 514);
             this.Stop.Name = "Stop";
-            this.Stop.Size = new System.Drawing.Size(125, 47);
+            this.Stop.Size = new System.Drawing.Size(137, 47);
             this.Stop.TabIndex = 11;
             this.Stop.Text = "Остановить";
             this.Stop.UseVisualStyleBackColor = false;
@@ -199,12 +201,27 @@
             this.rules.UseVisualStyleBackColor = false;
             this.rules.Click += new System.EventHandler(this.правила_Click);
             // 
+            // Restart
+            // 
+            this.Restart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.Restart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Restart.ForeColor = System.Drawing.Color.Green;
+            this.Restart.Location = new System.Drawing.Point(690, 588);
+            this.Restart.Name = "Restart";
+            this.Restart.Size = new System.Drawing.Size(137, 37);
+            this.Restart.TabIndex = 14;
+            this.Restart.Text = "Перезапустить";
+            this.Restart.UseVisualStyleBackColor = true;
+            this.Restart.Visible = false;
+            this.Restart.Click += new System.EventHandler(this.Restart_Click);
+            // 
             // GameProcess
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LemonChiffon;
             this.ClientSize = new System.Drawing.Size(902, 653);
+            this.Controls.Add(this.Restart);
             this.Controls.Add(this.rules);
             this.Controls.Add(this.Stop);
             this.Controls.Add(this.Start);
@@ -244,6 +261,7 @@
         private System.Windows.Forms.Button Start;
         private System.Windows.Forms.Button Stop;
         private System.Windows.Forms.Button rules;
+        private System.Windows.Forms.Button Restart;
     }
 }
 

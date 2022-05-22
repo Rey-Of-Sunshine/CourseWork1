@@ -24,14 +24,13 @@ namespace GeometryChess
 
         private void buttonReload_Click(object sender, EventArgs e)
         {
-            Close();
+            Application.Exit();
             Application.Restart();
         }
 
         private void buttonClose_Click(object sender, EventArgs e)
         {
-            Close();
-            gameProcess.Close();
+            Application.Exit();
         }
 
         private void End_Reload_Load(object sender, EventArgs e)

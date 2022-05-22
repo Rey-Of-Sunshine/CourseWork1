@@ -63,14 +63,22 @@ namespace GeometryChess
         private void Stop_Click(object sender, EventArgs e)
         {
             clicStart = false;
+            Restart.Visible = true;
         }
 
+        private void Restart_Click(object sender, EventArgs e)
+        {
+            Process.Start(Application.ExecutablePath);
+            Close();
+        }
 
 
         private void button1_Click(object sender, EventArgs e) // доступность редактора
         {
             clicStart = true;
+            Stop.Enabled = true;
             selectedFigure = SelectedFigure.Null;
+            Restart.Visible = false;
             buttonTriangle.Enabled = false;
             buttonRectangle.Enabled = false;
             buttonCircle.Enabled = false;
@@ -148,5 +156,6 @@ namespace GeometryChess
         {
             rul.Show();
         }
+
     }
 }
