@@ -54,7 +54,7 @@ namespace GeometryChess
 
     }
 
-
+    //
     class Triangle : Figure
     {
         PointF point1, point2, point3;
