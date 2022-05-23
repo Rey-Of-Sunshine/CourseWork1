@@ -9,7 +9,6 @@ namespace GeometryChess
 {
     internal class Game
     {
-        // Проблемы: определение победителя и завершения игры + рефакторинг, правила
 
         int step = 0;
 
